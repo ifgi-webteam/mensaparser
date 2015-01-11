@@ -1,0 +1,27 @@
+{
+	"montag": [
+		"montag_menu1",
+		"montag_menu2",
+		"montag_menu3"
+	],
+	"dienstag": [
+		"dienstag_menu1",
+		"dienstag_menu2",
+		"dienstag_menu3"
+	],
+	"mittwoch": [
+		"mittwoch_menu1",
+		"mittwoch_menu2",
+		"mittwoch_menu3"
+	],
+	"donnerstag": [
+		"donnerstag_menu1",
+		"donnerstag_menu2",
+		"donnerstag_menu3"
+	],
+	"freitag": [
+		"freitag_menu1",
+		"freitag_menu2",
+		"freitag_menu3"
+	]
+}
