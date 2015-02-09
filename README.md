@@ -16,6 +16,16 @@ Eingesetzte Technologien:
 * PostgreSQL 9.4 mit `JSONB` Unterstützung
 * NodeJS mit `cheerio` zum Parsen
 
+## Wie benutzen
+
+PostgreSQL auf localhost starten, Daten in `parser_aasee_ring.js` eintragen und Parser ausführen:
+
+```bash
+cd mensen
+nodejs aasee.js
+nodejs ring.js
+```
+
 ## Lizenz
 
 MIT
