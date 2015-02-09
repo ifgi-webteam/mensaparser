@@ -10,6 +10,7 @@ api:
   build: ./api
   volumes:
     - ./api:/data
+    - ./node_modules:/data/node_modules
   command: sh delaystart.sh
   links: 
     - db
@@ -20,6 +21,7 @@ parser:
   image: dockerfile/nodejs
   volumes:
     - ./parser:/data
+    - ./node_modules:/data/node_modules
   command: sh delaystart.sh
   links:
     - db

@@ -1,9 +1,10 @@
 {
-  "name": "mensaparser-parser",
+  "name": "mensaparser",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "dependencies": {
+    "http": "0.0.0",
     "cheerio": "^0.18.0",
     "moment": "^2.9.0",
     "pg": "^4.1.1",

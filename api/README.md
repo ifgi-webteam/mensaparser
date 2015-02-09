@@ -1,0 +1,1 @@
+NodeJS Webserver die die Datenbank abfragt und Daten bereit stellt.
