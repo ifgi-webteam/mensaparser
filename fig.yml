@@ -1,0 +1,25 @@
+db:
+  build: ./db
+  environment:
+    POSTGRES_USER: docker
+    POSTGRES_PASSWORD: docker123
+  ports:
+    - "5432:5432"
+
+api:
+  build: ./api
+  volumes:
+    - ./api:/data
+  command: sh delaystart.sh
+  links: 
+    - db
+  ports:
+    - "127.0.0.1:80:8080"
+
+parser:
+  image: dockerfile/nodejs
+  volumes:
+    - ./parser:/data
+  command: sh delaystart.sh
+  links:
+    - db

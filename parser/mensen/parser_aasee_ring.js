@@ -1,6 +1,6 @@
 // PostgreSQL
 var pg = require('pg');
-var conString = "postgres://docker:docker123@127.0.0.1/docker";
+var conString = "postgres://docker:docker123@db/docker";
 var client = new pg.Client(conString);
 // asynchronous database requests counter to know when to disconnect
 var requestCounter = 0;
