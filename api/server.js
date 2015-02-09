@@ -10,32 +10,24 @@ client.connect(function(err) {
 		return console.error('could not connect to postgres', err);
 	}
 	console.log('Connected to database');
-
-	//var query = client.query('SELECT * FROM menus');
-    //query.on('row', function(row) {
-    //  console.log(row);
-    //});
 });
 
-http.createServer(function(req, res) {
-	var list_records = function(req, res) {
-		
-	};
-	if(req.method == 'GET') {
-		//res.writeHead(200, {"Content-Type": "text/html"});
-		//res.write('here be data');
-		//res.end();
+var list_records = function(querystring, writecallback) {
+	var query = client.query(querystring);
+	query.on("row", function (row, result) {
+		result.addRow(row);
+	});
+	query.on("end", writecallback);		
+};
 
-		var query = client.query("SELECT * FROM menus");
-		query.on("row", function (row, result) {
-			result.addRow(row);
-		});
-		query.on("end", function (result) {
-			//console.log(JSON.stringify(result.rows, null, "    "));
+http.createServer(function(req, res) {
+	if(req.method == 'GET') {
+		function writecallback(result) {
 			res.writeHead(200, {'Content-Type': 'text/plain'});
 			res.write(JSON.stringify(result.rows) + "\n");
 			res.end();
-		});
+		}
+		list_records("SELECT * FROM menus", writecallback);
 	}
 }).listen(port);
 
