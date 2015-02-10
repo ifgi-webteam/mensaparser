@@ -23,7 +23,7 @@ var list_records = function(querystring, writecallback) {
 http.createServer(function(req, res) {
 	if(req.method == 'GET') {
 		function writecallback(result) {
-			res.writeHead(200, {'Content-Type': 'text/plain'});
+			res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8'});
 			res.write(JSON.stringify(result.rows) + "\n");
 			res.end();
 		}
