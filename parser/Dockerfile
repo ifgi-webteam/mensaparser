@@ -5,7 +5,6 @@ WORKDIR /usr/src/app
 
 ONBUILD COPY package.json /usr/src/app/
 ONBUILD RUN npm install
-ONBUILD RUN npm install -g nodemon
 ONBUILD COPY . /usr/src/app/
 
 CMD ["sh", "delaystart.sh"]

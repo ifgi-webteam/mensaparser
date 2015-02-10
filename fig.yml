@@ -8,20 +8,12 @@ db:
 
 api:
   build: ./api
-  volumes:
-    - ./api:/data
-    - ./node_modules:/data/node_modules
-  command: sh delaystart.sh
   links: 
     - db
   ports:
     - "127.0.0.1:80:8080"
 
 parser:
-  image: dockerfile/nodejs
-  volumes:
-    - ./parser:/data
-    - ./node_modules:/data/node_modules
-  command: sh delaystart.sh
+  build: ./parser
   links:
     - db
