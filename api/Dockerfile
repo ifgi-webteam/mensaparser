@@ -3,9 +3,8 @@ FROM dockerfile/nodejs
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-ONBUILD COPY package.json /usr/src/app/
-ONBUILD RUN npm install
-ONBUILD RUN npm install -g nodemon
-ONBUILD COPY . /usr/src/app/
+COPY . /usr/src/app/
+RUN npm install
+RUN npm install -g nodemon
 
 CMD ["sh", "delaystart.sh"]
