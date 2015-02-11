@@ -71,6 +71,16 @@ function process(error, response, html) {
 
 		// iterate idList as week days
 		for (weekDay in idList) { // mo, di, mi, do, fr
+			// parent table
+			var tbl = $('#' + idList[weekDay]).parent().parent().parent();
+			var menu3 = tbl.next();
+			console.log("Menu III: "+menu3.text());
+			console.log("Menu III: "+menu3.next().text());
+			console.log("Menu III: "+menu3.next().next().text());
+			console.log("Menu III: "+menu3.next().next().next().text());
+			console.log("Menu III: "+menu3.next().next().next().next().text());
+
+
 			// Datum des Tages parsen
 			var dateToday = $( '#' + idList[weekDay] ).text().split(" ").pop().replace("\r\n", "");
 			

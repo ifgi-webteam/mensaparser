@@ -4,7 +4,7 @@
 
 var mensa = {
 			"name": "Mensa am Ring",
-			"uid": "http://data.uni-muenster.de/context/uniaz/70ad738c960cc5e88e5e8d8ac1b5975e",
+			"uid": "http://data.uni-muenster.de/context/uniaz/hiermusseineidhindieichnichtweiss",
 			"url": "http://www.studentenwerk-muenster.de/de/essen-a-trinken/mensen/mensa-am-ring"
 };
 
