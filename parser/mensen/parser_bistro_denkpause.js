@@ -55,63 +55,86 @@ function process(error, response, html) {
 
 	// check if request was successfull (html response code 200)
 	if(!error && response.statusCode == 200) {
-		var $ = cheerio.load(html);
+		var $ = cheerio.load(html, { normalizeWhitespace: true });
+		var contentElement = $("table.contentpaneopen");
 
 		// Preise abfragen
 		// Ergebnisse in Variable preise: 
-		// preise[0] komplettes pattern match
-		// preise[1] (Menü 1/2 Student), 
-		// preise[2] (Menü 1/2 Sonst.), 
-		// preise[3] (Menü 3 Student),
-		// preise[4] (Menü 3 Sonst.),
-		// preise[5] (Einopf Student),
-		// preise[6] (Eintopf Sonst.)
-		var content = $("table.contentpaneopen").text();
-		var preise = content.match(/Preise\sMenü\sI\s\/II\sStud\.\s([0-9],[0-9]+)\s€\/Sonst\.\s([0-9],[0-9]+)\s€Preise\sMenü\sIII\s+Stud\.\s([0-9],[0-9]+)\s€\/Sonst\.\s([0-9],[0-9]+)\s€\s+Eintopf\s+Stud\.\s([0-9],[0-9]+)\s€\/Sonst\.\s([0-9],[0-9]+)\s€/);
+		// preise[0] (Menü 1 Student), 
+		// preise[1] (Menü 1 Sonst.), 
+		// preise[2] (Menü 2 Student), 
+		// preise[3] (Menü 2 Sonst.), 
+		// preise[4] (Menü 3 Student),
+		// preise[5] (Menü 3 Sonst.),
+		// preise[6] (Eintopf Student),
+		// preise[7] (Eintopf Sonst.)
+		var preiseMatch = contentElement.text().match(/([0-9],[0-9]{2}) €\/Sonst. ([0-9],[0-9]{2})/g);
+		var preisePartials = [];
+		var preise = [];
+		preiseMatch.forEach(function(el, index, array){
+			var parts = el.match(/([0-9],[0-9]{2}) €\/Sonst. ([0-9],[0-9]{2})/);
+			preisePartials.push(parts[1]);
+			preisePartials.push(parts[2]);
+		});
+		preise[0] = preisePartials[0];
+		preise[1] = preisePartials[1];
+		preise[2] = preisePartials[0];
+		preise[3] = preisePartials[1];
+		preise[4] = preisePartials[2];
+		preise[5] = preisePartials[3];
+		preise[6] = preisePartials[4];
+		preise[7] = preisePartials[5];
+		console.log("Preise: ", preisePartials, preise);
 
-		// iterate idList as week days
-		for (weekDay in idList) { // mo, di, mi, do, fr
-			// parent table
-			var tbl = $('#' + idList[weekDay]).parent().parent().parent();
-			var menu3 = tbl.next();
-			console.log("Menu III: "+menu3.text());
-			console.log("Menu III: "+menu3.next().text());
-			console.log("Menu III: "+menu3.next().next().text());
-			console.log("Menu III: "+menu3.next().next().next().text());
-			console.log("Menu III: "+menu3.next().next().next().next().text());
+		// Tägliche Menüs
+		var weekdayTables = contentElement.text().split(/((Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag) [0-9]+\.[0-9]+\.[0-9]+)/);
 
+		// contentElement.text().split() produziert ein Array, welches 3x die Länge
+		// der Wochentage hat, also 3x 6 Tage = 18 Einträge
+		// deshalb hier wieder geteilt durch 3
+		for(var i=1; i<= weekdayTables.length/3 ; i++){
+			var dateToday = weekdayTables[i*3-2].split(" ").pop(); // Teil nach " "
+			var menusTodayAll = weekdayTables[i*3];
 
-			// Datum des Tages parsen
-			var dateToday = $( '#' + idList[weekDay] ).text().split(" ").pop().replace("\r\n", "");
-			
-			// JSON Objekt für jedes Menü
-			// Menü I
-			var fooditem = {
-				"mensa": {
-					"name": mensa.name,
-					"uid": mensa.uid
-				},
-				"date": moment(dateToday, "DD.MM.YYYY").format('YYYY-MM-DD'),
-				"name": $( '#' + idList[weekDay] + "_menu1" ).text(),
-				"minPrice": preise[1],
-				"maxPrice": preise[2]
-			};
-			console.log("" + fooditem.date + ": " + fooditem.name + " (" + fooditem.minPrice + "/" + fooditem.maxPrice + ")");
-			
-			// Menü II
-			var fooditem = {
-				"mensa": {
-					"name": mensa.name,
-					"uid": mensa.uid
-				},
-				"date": moment(dateToday, "DD.MM.YYYY").format('YYYY-MM-DD'),
-				"name": $( '#' + idList[weekDay] + "_menu2" ).text(),
-				"minPrice": preise[1],
-				"maxPrice": preise[2]
-			};
-			console.log("" + fooditem.date + ": " + fooditem.name + " (" + fooditem.minPrice + "/" + fooditem.maxPrice + ")");
+			// III, II, I in absteigender Reihenfolge
+			var menusToday = menusTodayAll.split(/Menü III|Menü II|Menü I|Eintopf/)
+				.filter(function(el){
+					// leere Elemente rausfiltern
+					return el.trim().length!=0;
+				});
 
-			// insertData(fooditem);
+			// Ergebnis ist ein Array mit 3 oder 4 Einträgen:
+			// Menü I, II, III, Eintopf (Eintopf wird nicht jeden Tag angeboten)
+			//console.log( dateToday, menusToday );
+
+			["Menü I", "Menü II", "Menü III", "Eintopf"].forEach(function(el, index, array){
+				// JSON Objekt für jedes Menü
+				if(menusToday[index]){ // index-Nummern stimmen mit index von menusToday & preise überein
+					var fooditem = {
+						"mensa": {
+							"name": mensa.name,
+							"uid": mensa.uid
+						},
+						"date": moment(dateToday, "DD.MM.YYYY").format('YYYY-MM-DD'),
+						"name": menusToday[index].trim(),
+						"minPrice": preise[index*2],
+						"maxPrice": preise[index*2+1]
+						};
+
+					if(fooditem.name.toLowerCase().indexOf("geschlossen") != -1
+						|| fooditem.name.toLowerCase().indexOf("keine ausg") != -1) {
+						fooditem.minPrice = "0";
+						fooditem.maxPrice = "0";
+					}
+
+					if(fooditem.name.indexOf("Änderungen vorb")) {
+						fooditem.name = fooditem.name.split("Änderungen vorb")[0].trim();
+					}
+					
+					console.log("" + fooditem.date + ": " + fooditem.name + " (" + fooditem.minPrice + "/" + fooditem.maxPrice + ")");
+					insertData(fooditem);
+				}
+			});
 		}
 	}
 }
