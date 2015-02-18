@@ -1,7 +1,6 @@
 // main method for module export & start point
-var bistroparser = function(mens){
+var bistroparser = function(mensa){
 	var request = require('request');
-	var mensa = mens;
 	request(mensa.url, process);
 
 	// PostgreSQL
@@ -10,8 +9,6 @@ var bistroparser = function(mens){
 	var client = new pg.Client(conString);
 	// asynchronous database requests counter to know when to disconnect
 	var requestCounter = 0;
-	// initialize empty mensa object, to be filled by main ringparser() method
-	var mensa = new Object();
 
 	// connect to PostgreSQL database
 	client.connect(function(err) {
@@ -29,7 +26,7 @@ var bistroparser = function(mens){
 
 	// insert data into PostgreSQL database
 	function insertData(toInsert) {
-		var fooditem = toInsert;
+		var fooditem = toInsert; console.log(toInsert);
 		requestCounter++;
 		console.log("" + requestCounter + " -> calling db insert");
 		
