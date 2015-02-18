@@ -93,7 +93,7 @@ var ringparser = function(mens) {
 						"minPrice": preise[i*2-1],
 						"maxPrice": preise[i*2]
 					};
-					console.log("" + fooditem.date + ": " + fooditem.name);
+					console.log("" + fooditem.date + ": " + fooditem.name + " (" + fooditem.minPrice + "/" + fooditem.maxPrice + ")");
 					insertData(fooditem);
 				}
 			}
