@@ -9,6 +9,20 @@ Bisher implementiert:
 * [Mensa am Ring](http://www.studentenwerk-muenster.de/de/essen-a-trinken/mensen/mensa-am-ring)
 * [Mensa am Aasee](http://www.studentenwerk-muenster.de/de/essen-a-trinken/mensen/mensa-am-aasee)
 
+Jede Mensa hat drei wichtige Merkmale:
+
+```Javascript
+var mensa = {
+			"name": "Mensa ...",
+			"uid": "http://data.uni-muenster.de/context/uniaz/...",
+			"url": "http://www.studentenwerk-muenster.de/de/..."
+};
+```
+
+`name`: Name / Bezeichnung
+`uid`: Die ID, wie sie in den (Linked Data)[http://www.lodum.de] Datenbanken vorkommt
+`url`: Adresse des zu parsenden Dokuments
+
 ## Technologie
 
 Eingesetzte Technologien:
