@@ -26,7 +26,7 @@ var davinciparser = function(mensa) {
 
 	// insert data into PostgreSQL database
 	function insertData(toInsert) {
-		var fooditem = toInsert; console.log(toInsert);
+		var fooditem = toInsert; //console.log(toInsert);
 		requestCounter++;
 		console.log("" + requestCounter + " -> calling db insert");
 		
@@ -78,7 +78,7 @@ var davinciparser = function(mensa) {
 						if(preiseToday.trim().length > 0) {
 							preise = preiseToday.match(/([0-9],[0-9]{2})/g);
 						}
-						console.log("Preise: ", preise);
+						//console.log("Preise: ", preise);
 
 						// JSON Objekt für jedes Menü
 						var fooditem = {
@@ -107,7 +107,8 @@ var davinciparser = function(mensa) {
 				if(menu.length>1) {
 					
 					if(menu[1]) {
-						var preise = menu[1].match(/([0-9],[0-9]{2}).+?\/.+?([0-9],[0-9]{2}) /);
+						var preise = menu[1].match(/([0-9],[0-9]{2}).+?\/.+?([0-9],[0-9]{2}) ?/);
+						//console.log(menu[1]);
 
 						// JSON Objekt für jedes Menü
 						var fooditem = {

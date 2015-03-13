@@ -4,7 +4,7 @@
 
 var mensa = {
 			"name": "Mensa Davinci",
-			"uid": "http://data.uni-muenster.de/context/uniaz/70ad738c960cc5e88e5e8d8acbbbbbbb",
+			"uid": "http://data.uni-muenster.de/context/uniaz/d46d2d2c4b3ea6341254a9649e38678f",
 			"url": "http://www.studentenwerk-muenster.de/de/essen-a-trinken/mensen/da-vinci"
 };
 

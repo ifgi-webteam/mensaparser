@@ -4,7 +4,7 @@
 
 var mensa = {
 			"name": "Bistro Denkpause",
-			"uid": "http://data.uni-muenster.de/context/uniaz/70ad738c960cc5e88e5e8d8acaacccccc",
+			"uid": "http://data.uni-muenster.de/context/uniaz/9b3af1a05cbfb372bc205d86760a6afa",
 			"url": "http://www.studentenwerk-muenster.de/de/essen-a-trinken/bistros-a-cafes/denkpause"
 };
 

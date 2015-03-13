@@ -26,7 +26,8 @@ var ringparser = function(mensa) {
 
 	// insert data into PostgreSQL database
 	function insertData(toInsert) {
-		var fooditem = toInsert; console.log(toInsert);
+		var fooditem = toInsert; 
+		//console.log(toInsert);
 		requestCounter++;
 		console.log("" + requestCounter + " -> calling db insert");
 		
@@ -70,7 +71,8 @@ var ringparser = function(mensa) {
 			// preise[5] (Menü 3 Student),
 			// preise[6] (Menü 3 Sonst.)
 			var content = $("table.contentpaneopen").text();
-			var preise = content.match(/[0P]reise\s+Stud. \/ Sonst. Menü I\s+([0-9],[0-9]+) € \/ ([0-9],[0-9]+) €Menü II\s+([0-9],[0-9]+) € \/ ([0-9],[0-9]+) €Menü III\s+([0-9],[0-9]+) € \/ ([0-9],[0-9]+) €/);
+			console.log(content);
+			var preise = content.match(/[0P]reise\s+Stud.\s+\/\s+Sonst.\s+Menü\s+I\s+([0-9],[0-9]+)\s+€\s+\/\s+([0-9],[0-9]+)\s+€\s*Menü\s+II\s+([0-9],[0-9]+)\s+€\s+\/\s+([0-9],[0-9]+)\s+€\s*Menü\s+III\s+([0-9],[0-9]+)\s+€\s+\/\s+([0-9],[0-9]+)\s+€/);
 
 			// iterate idList as week days
 			for (weekDay in idList) { // mo, di, mi, do, fr
