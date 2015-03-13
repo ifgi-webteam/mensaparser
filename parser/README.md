@@ -20,7 +20,9 @@ var mensa = {
 ```
 
 `name`: Name / Bezeichnung
-`uid`: Die ID, wie sie in den (Linked Data)[http://www.lodum.de] Datenbanken vorkommt
+
+`uid`: Die ID, wie sie in den [Linked Data](http://www.lodum.de) Datenbanken von LODUM vorkommt
+
 `url`: Adresse des zu parsenden Dokuments
 
 ## Technologie
@@ -34,10 +36,20 @@ Eingesetzte Technologien:
 
 PostgreSQL auf localhost starten, Daten in `parser_aasee_ring.js` eintragen und Parser ausführen:
 
+Einzeln:
+
 ```bash
 cd mensen
-nodejs aasee.js
-nodejs ring.js
+nodejs mensen/aasee.js
+nodejs mensen/ring.js
+// usw.
+```
+
+Alle nacheinander:
+
+```bash
+cd mensen
+nodejs server.js
 ```
 
 ## Lizenz

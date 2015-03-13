@@ -1,18 +1,22 @@
 # Mensaparser in Docker
 
+Docker/Fig Konfiguration, die einen Parser, eine Datenbank und eine API bereitstellt, um die Mensadaten des Studentenwerks Münster maschinenlesbar bereitzustellen.
+
 ## Komponenten
+
+Weitere Infos in den READMEs in den Ordnern der Komponenten.
 
 ### db
 
-PostgreSQL Datenbank mit `JSONB`
+Docker Container mit PostgreSQL Datenbank v. 9.4 mit `JSONB` Unterstützung.
 
 ### api
 
-NodeJS Webserver
+Docker Container mit NodeJS Webserver
 
 ### parser
 
-NodeJS Parser
+Docker Container mit NodeJS Parser
 
 ### delaystart.sh
 
