@@ -26,7 +26,7 @@ var bistroparser = function(mensa){
 
 	// insert data into PostgreSQL database
 	function insertData(toInsert) {
-		var fooditem = toInsert; console.log(toInsert);
+		var fooditem = toInsert; 
 		requestCounter++;
 		console.log("" + requestCounter + " -> calling db insert");
 		
@@ -87,7 +87,7 @@ var bistroparser = function(mensa){
 			preise[5] = preisePartials[3];
 			preise[6] = preisePartials[4];
 			preise[7] = preisePartials[5];
-			console.log("Preise: ", preisePartials, preise);
+			//console.log("Preise: ", preisePartials, preise);
 
 			// Tägliche Menüs
 			var weekdayTables = contentElement.text().split(/((Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag) [0-9]+\.[0-9]+\.[0-9]+)/);
