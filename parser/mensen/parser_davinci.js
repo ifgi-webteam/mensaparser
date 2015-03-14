@@ -54,7 +54,7 @@ var davinciparser = function(mensa) {
 		// cheerio library for html parsing
 		var cheerio = require('cheerio');
 		// html element id list for parsing & extracting data
-		var idList = [ "montag", "dienstag", "mittwoch", "donnerstag"]; // freitag extra behandeln unten
+		var idList = [ "montag", "dienstag", "mittwoch", "donnerstag", "freitag"]; // freitag extra behandeln unten
 
 		// check if request was successfull (html response code 200)
 		if(!error && response.statusCode == 200) {
@@ -99,15 +99,16 @@ var davinciparser = function(mensa) {
 			}
 
 			// Freitag
-			var contentFri = content.split(/(Freitag [0-9]+\.[0-9]+\.[0-9]+)/);
+			/*
+			var contentFri = content.split(/(Freitag\s*[0-9]+\.[0-9]+\.[0-9]+)/);
 			var menusFriday = contentFri.pop().split(/Menü III|Menü II|Menü I|Vegetarisches Angebot/);
 			menusFriday.forEach(function(e, i, a){
-				var menu = e.split("Stud.");
+				var menu = e.split(/^Stud\./);
 				var dateToday = contentFri[1].split(" ").pop();
 				if(menu.length>1) {
 					
 					if(menu[1]) {
-						var preise = menu[1].match(/([0-9],[0-9]{2}).+?\/.+?([0-9],[0-9]{2}) ?/);
+						var preise = menu[1].match(/([0-9],[0-9]{2}).+?\/.+?([0-9],[0-9]{2})?/);
 						//console.log(menu[1]);
 
 						// JSON Objekt für jedes Menü
@@ -126,6 +127,7 @@ var davinciparser = function(mensa) {
 					}
 				}
 			});
+			*/
 
 		}
 	}
