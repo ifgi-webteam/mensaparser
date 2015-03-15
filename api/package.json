@@ -11,6 +11,8 @@
   "license": "MIT",
   "dependencies": {
     "http": "0.0.0",
-    "pg": "^4.2.0"
+    "moment": "^2.9.0",
+    "pg": "^4.2.0",
+    "restify": "^3.0.0"
   }
 }
