@@ -1,4 +1,4 @@
-NodeJS Webserver die die Datenbank abfragt und Daten bereit stellt.
+NodeJS Webserver, der die Datenbank abfragt und Daten bereit stellt.
 
 # Mensa API
 
