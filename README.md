@@ -33,4 +33,4 @@ sudo fig up
 
 Scripte und Configs: MIT Lizenz
 
-Gezeigte (Beispiel-)Daten vom Studentenwerk Münster und LODUM Projekt.
+Gezeigte (Beispiel-)Daten basieren auf Daten vom [Studentenwerk Münster](http://www.studentenwerk-muenster.de/) und [LODUM Projekt](http://www.lodum.de/).
