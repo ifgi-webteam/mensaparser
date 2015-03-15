@@ -1,13 +1,26 @@
 [
-		{
-			"name": "Mensa am Aasee",
-			"uid": "70ad738c960cc5e88e5e8d8ac1b5975e",
-			"url": "http://www.studentenwerk-muenster.de/de/essen-a-trinken/mensen/mensa-am-aasee"
-		},
-		{
-			"name": "Mensa am Ring",
-			"uid": "8ac770e149aa52077f85189c390e9571",
-			"url": "http://www.studentenwerk-muenster.de/de/essen-a-trinken/mensen/mensa-am-ring"
-		}
-	
+  {
+    "mensa": {
+      "uid": "http://data.uni-muenster.de/context/uniaz/70ad738c960cc5e88e5e8d8ac1b5975e",
+      "name": "Mensa am Aasee"
+    }
+  },
+  {
+    "mensa": {
+      "uid": "http://data.uni-muenster.de/context/uniaz/9b3af1a05cbfb372bc205d86760a6afa",
+      "name": "Bistro Denkpause"
+    }
+  },
+  {
+    "mensa": {
+      "uid": "http://data.uni-muenster.de/context/uniaz/8ac770e149aa52077f85189c390e9571",
+      "name": "Mensa am Ring"
+    }
+  },
+  {
+    "mensa": {
+      "uid": "http://data.uni-muenster.de/context/uniaz/d46d2d2c4b3ea6341254a9649e38678f",
+      "name": "Mensa Davinci"
+    }
+  }
 ]

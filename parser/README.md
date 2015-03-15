@@ -4,10 +4,12 @@
 
 Weil das Studentenwerk keine Schnittstelle für Entwickler bereitstellt, muss geparst werden.
 
-Bisher implementiert:
+Bisher implementiert sind:
 
 * [Mensa am Ring](http://www.studentenwerk-muenster.de/de/essen-a-trinken/mensen/mensa-am-ring)
 * [Mensa am Aasee](http://www.studentenwerk-muenster.de/de/essen-a-trinken/mensen/mensa-am-aasee)
+* [Bistro Denkpause](http://www.studentenwerk-muenster.de/de/essen-a-trinken/bistros-a-cafes/denkpause)
+* [Mensa Da Vinci](http://www.studentenwerk-muenster.de/de/essen-a-trinken/mensen/da-vinci)
 
 Jede Mensa hat drei wichtige Merkmale:
 
@@ -19,17 +21,17 @@ var mensa = {
 };
 ```
 
-`name`: Name / Bezeichnung
+`name`: Name / Bezeichnung der Mensa.
 
-`uid`: Die ID, wie sie in den [Linked Data](http://www.lodum.de) Datenbanken von LODUM vorkommt
+`uid`: Die ID, wie sie in den [Linked Data](http://www.lodum.de) Datenbanken von LODUM vorkommt. Siehe auch [App der Uni Münster](http://app.uni-muenster.de).
 
-`url`: Adresse des zu parsenden Dokuments
+`url`: Adresse des zu parsenden Dokuments auf den Seiten des Studentenwerks.
 
 ## Technologie
 
 Eingesetzte Technologien:
 
-* PostgreSQL 9.4 mit `JSONB` Unterstützung
+* PostgreSQL 9.4 mit `JSON` Unterstützung
 * NodeJS mit `cheerio` zum Parsen
 
 ## Wie benutzen
@@ -51,7 +53,3 @@ Alle nacheinander:
 cd mensen
 nodejs server.js
 ```
-
-## Lizenz
-
-MIT

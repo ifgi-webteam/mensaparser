@@ -28,3 +28,9 @@ Wartet 12 Sekunden, damit der Datenbankcontainer fertig starten kann, bevor die 
 npm install
 sudo fig up
 ```
+
+## Lizenz
+
+Scripte und Configs: MIT Lizenz
+
+Gezeigte (Beispiel-)Daten vom Studentenwerk Münster und LODUM Projekt.
