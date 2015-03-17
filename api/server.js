@@ -50,10 +50,10 @@ function respondAll(req, res, next) {
 */
 function respondCurrentMenu(req, res, next) {
 	res.charSet('UTF-8');
-	var nextSunday = moment().day("Sunday");
-	var lastSunday = moment().day("Sunday").subtract(7, 'days');
-	console.log('respondHello:', 'Query between ', lastSunday.format("YYYY-MM-DD"), nextSunday.format("YYYY-MM-DD"));
-	queryDatabase("SELECT * FROM menus WHERE data->>'date' > $1 AND data->>'date' < $2 ", 
+	var lastSunday = moment().day("Sunday");
+	var nextSunday = moment().day("Sunday").add(7, 'days');
+	console.log('respondCurrentMenu:', 'Query between ', lastSunday.format("YYYY-MM-DD"), nextSunday.format("YYYY-MM-DD"));
+	queryDatabase("SELECT data FROM menus WHERE data->>'date' > $1 AND data->>'date' < $2 ", 
 		[lastSunday.format("YYYY-MM-DD"), nextSunday.format("YYYY-MM-DD")],
 		function(response) {
 		res.send( response.rows );
@@ -66,6 +66,7 @@ function respondCurrentMenu(req, res, next) {
 */
 function respondMensen(req, res, next) {
 	res.charSet('UTF-8');
+	console.log('respondMensen');
 	queryDatabase("SELECT DISTINCT data->'mensa' as mensa FROM menus", [], function(response) {
 		res.send( response.rows );
 		next();
@@ -77,10 +78,10 @@ function respondMensen(req, res, next) {
 */
 function respondMenuByWeek(req, res, next) {
 	res.charSet('UTF-8');
-	var nextSunday = moment().day("Sunday");
-	var lastSunday = moment().day("Sunday").subtract(7, 'days');
+	var lastSunday = moment().day("Sunday");
+	var nextSunday = moment().day("Sunday").add(7, 'days');
 	console.log('respondMenuByWeek:', 'Query between ', lastSunday.format("YYYY-MM-DD"), nextSunday.format("YYYY-MM-DD"));
-	queryDatabase("SELECT * FROM menus WHERE data->>'date' > $1 AND data->>'date' < $2 ", 
+	queryDatabase("SELECT data FROM menus WHERE data->>'date' > $1 AND data->>'date' < $2 ", 
 		[lastSunday.format("YYYY-MM-DD"), nextSunday.format("YYYY-MM-DD")],
 		function(response) {
 		res.send( response.rows );
@@ -93,13 +94,13 @@ function respondMenuByWeek(req, res, next) {
 */
 function respondCurrentMenuByMensa(req, res, next) {
 	res.charSet('UTF-8');
-	var nextSunday = moment().day("Sunday");
-	var lastSunday = moment().day("Sunday").subtract(7, 'days');
-	console.log(req.params[0]);
+	var lastSunday = moment().day("Sunday");
+	var nextSunday = moment().day("Sunday").add(7, 'days');
+	console.log('respondCurrentMenuByMensa:', req.params[0]);
 
 	// query for current mensa food
 	// concatenate query parameter with "$" to form a regular expression
-	queryDatabase("SELECT * FROM menus WHERE data->>'date' > $1 AND data->>'date' <= $2 AND data->'mensa'->>'uid' ~ ($3||'$')", 
+	queryDatabase("SELECT data FROM menus WHERE data->>'date' > $1 AND data->>'date' <= $2 AND data->'mensa'->>'uid' ~ ($3||'$')", 
 		[lastSunday.format("YYYY-MM-DD"), nextSunday.format("YYYY-MM-DD"), req.params[0]],
 		function(response) {
 		res.send( response.rows );
