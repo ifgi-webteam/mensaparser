@@ -10,7 +10,7 @@ api:
   build: ./api
   links: 
     - db
-  ports:l
+  ports:
     - "9000:8080"
 #  volumes:
 #    - ./api:/usr/src/app/
