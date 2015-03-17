@@ -109,6 +109,7 @@ function respondCurrentMenuByMensa(req, res, next) {
 
 
 var server = restify.createServer();
+server.use(restify.fullResponse()); // enable CORS
 server.get('/', respondHello);
 server.get('/all', respondAll);
 server.get('/mensen', respondMensen);
@@ -123,6 +124,6 @@ server.get(/^\/docs\/?.*/, restify.serveStatic({
 	})
 );
 
-server.listen(8080, function() {
+server.listen(9000, function() {
 	console.log('%s listening at %s', server.name, server.url);
 });
