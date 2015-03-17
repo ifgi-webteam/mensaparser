@@ -4,14 +4,14 @@ db:
     POSTGRES_USER: docker
     POSTGRES_PASSWORD: docker123
   ports:
-    - "5432:5432"
+    - "127.0.0.1:5432:5432"
 
 api:
   build: ./api
   links: 
     - db
-  ports:
-    - "127.0.0.1:9000:8080"
+  ports:l
+    - "9000:8080"
 #  volumes:
 #    - ./api:/usr/src/app/
 
