@@ -61,7 +61,7 @@ Example response:
     "id": 1,
     "data": {
       "date": "2015-03-16",
-      "name": "Schweineschnitzel \"JÃ¤ger Art\"Teigwaren, BIO-MÃ¶hren",
+      "name": "Schweineschnitzel \"Jäger Art\"Teigwaren, BIO-Möhren",
       "mensa": {
         "uid": "http://data.uni-muenster.de/context/uniaz/9b3af1a05cbfb372bc205d86760a6afa",
         "name": "Bistro Denkpause"
@@ -74,7 +74,7 @@ Example response:
     "id": 2,
     "data": {
       "date": "2015-03-16",
-      "name": "GemÃ¼seragout \"Toscana\" auf Spiralnudeln",
+      "name": "Gemüseragout \"Toscana\" auf Spiralnudeln",
       "mensa": {
         "uid": "http://data.uni-muenster.de/context/uniaz/8ac770e149aa52077f85189c390e9571",
         "name": "Mensa am Ring"
