@@ -110,6 +110,6 @@ Get the current week's menu for a Mensa in [OpenMensa Feed v2 XML format](http:/
 
 Example query:
 
-`/openmensa/canteen/70ad738c960cc5e88e5e8d8ac1b5975e`
+`/openmensa/today/70ad738c960cc5e88e5e8d8ac1b5975e`
 
 Get the today's menu for a Mensa in [OpenMensa Feed v2 XML format](http://doc.openmensa.org/feed/v2/).

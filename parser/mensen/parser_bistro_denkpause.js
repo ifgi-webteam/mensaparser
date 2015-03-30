@@ -122,7 +122,7 @@ var bistroparser = function(mensa){
 							"name": menusToday[index].trim(),
 							"minPrice": parseFloat( preise[index*2].replace(',','.') ).toFixed(2),
 							"maxPrice": parseFloat( preise[index*2+1].replace(',','.') ).toFixed(2),
-							"menuName": index,
+							"menuName": el,
 							"closed": 0
 							};
 
