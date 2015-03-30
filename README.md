@@ -2,9 +2,13 @@
 
 Docker/Docker-Compose/Fig-Konfiguration, die einen Parser, eine Datenbank und eine API bereitstellt, um die Mensadaten des Studentenwerks Münster maschinenlesbar bereitzustellen.
 
+Verwendung der Daten bei
+* [WWU Campusplan App](https://app.uni-muenster.de) (demnächst)
+* [OpenMensa](https://openmensa.org/#14/51.9654/7.6059)
+
 ## Komponenten
 
-Weitere Infos in den READMEs in den Ordnern der Komponenten.
+Weitere Infos in den READMEs in den Ordnern der jeweiligen Komponenten.
 
 ### db
 
@@ -18,7 +22,7 @@ Docker Container mit NodeJS Webserver, stellt Daten im `JSON` Format bereit.
 
 Docker Container mit NodeJS Parser, der die Daten in die Datenbank einträgt.
 
-### delaystart.sh
+### delaystart.sh Script
 
 Wartet 12 Sekunden, damit der Datenbankcontainer fertig starten kann, bevor die NodeJS Scripte anfangen zu arbeiten.
 
@@ -28,7 +32,7 @@ Repository clonen, dann
 
 ```bash
 cd mensaparser
-npm install
+sudo docker-compose build
 sudo docker-compose up # or 'fig up' if you are on an older version of Docker
 ```
 
