@@ -89,9 +89,17 @@ var ringparser = function(mensa) {
 						},
 						"date": moment(dateToday, "DD.MM.YYYY").format('YYYY-MM-DD'),
 						"name": $( '#' + idList[weekDay] + "_menu" + i ).text(),
-						"minPrice": preise[i*2-1],
-						"maxPrice": preise[i*2]
+						"minPrice": parseFloat( preise[i*2-1].replace(',','.') ).toFixed(2),
+						"maxPrice": parseFloat( preise[i*2].replace(',','.') ).toFixed(2),
+						"menuName": "Menü " + Array(i+1).join('I'),
+						"closed": 0
 					};
+					if(fooditem.name.toLowerCase().indexOf("geschlossen") != -1
+						|| fooditem.name.toLowerCase().indexOf("keine ausg") != -1) {
+						fooditem.minPrice = "0";
+						fooditem.maxPrice = "0";
+						fooditem.closed = 1;
+					}
 					console.log("" + fooditem.date + ": " + fooditem.name + " (" + fooditem.minPrice + "/" + fooditem.maxPrice + ")");
 					insertData(fooditem);
 				}

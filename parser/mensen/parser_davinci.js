@@ -71,12 +71,12 @@ var davinciparser = function(mensa) {
 				// iterate over the 3 daily menus
 				for(var i = 1; i <= 3; i++) {
 					// Menu 3 / Vegetarisch nicht immer im Angebot
-					if($('#' + idList[weekDay] + '_menu' + i)) {
+					if($('#' + idList[weekDay] + '_menu' + i).length>0) {
 						// Preise variieren pro Tag & Menü
-						var preiseToday = $('#' + idList[weekDay] + '_menu' + i + "_preis").text();
-						var preise = [0,0];
-						if(preiseToday.trim().length > 0) {
-							preise = preiseToday.match(/([0-9],[0-9]{2})/g);
+						var preiseToday = $('#' + idList[weekDay] + '_menu' + i + "_preis");
+						var preise = [];
+						if(preiseToday.text().trim().length > 0) {
+							preise = preiseToday.text().match(/([0-9],[0-9]{2})/g);
 						}
 						//console.log("Preise: ", preise);
 
@@ -88,11 +88,40 @@ var davinciparser = function(mensa) {
 							},
 							"date": moment(dateToday, "DD.MM.YYYY").format('YYYY-MM-DD'),
 							"name": $( '#' + idList[weekDay] + "_menu" + i ).text(),
-							"minPrice": preise[0],
-							"maxPrice": preise[1]
+							"minPrice": parseFloat( preise[0].replace(',','.') ).toFixed(2),
+							"maxPrice": parseFloat( preise[1].replace(',','.') ).toFixed(2),
+							"menuName": "Menü " + Array(i+1).join('I'),
+							"closed": 0
+						};
+
+						if(fooditem.name.toLowerCase().indexOf("geschlossen") != -1
+							|| fooditem.name.toLowerCase().indexOf("keine ausg") != -1) {
+							fooditem.minPrice = "0";
+							fooditem.maxPrice = "0";
+							fooditem.closed = 1;
+						}
+						console.log("" + fooditem.date + ": " + fooditem.name + " (" + fooditem.minPrice + "/" + fooditem.maxPrice + ")");
+						insertData(fooditem);
+					} else {
+						// If no data found, assume closed or parsing error and insert nothing
+						console.log("No results for "+idList[weekDay]+", assume closed");
+
+						/*
+						var fooditem = {
+							"mensa": {
+								"name": mensa.name,
+								"uid": mensa.uid
+							},
+							"date": moment(dateToday, "DD.MM.YYYY").format('YYYY-MM-DD'),
+							"name": "Geschlossen",
+							"minPrice": 0,
+							"maxPrice": 0,
+							"menuName": "Menü " + Array(i+1).join('I'),
+							"closed": 1
 						};
 						console.log("" + fooditem.date + ": " + fooditem.name + " (" + fooditem.minPrice + "/" + fooditem.maxPrice + ")");
 						insertData(fooditem);
+						*/
 					}
 
 				}

@@ -120,14 +120,17 @@ var bistroparser = function(mensa){
 							},
 							"date": moment(dateToday, "DD.MM.YYYY").format('YYYY-MM-DD'),
 							"name": menusToday[index].trim(),
-							"minPrice": preise[index*2],
-							"maxPrice": preise[index*2+1]
+							"minPrice": parseFloat( preise[index*2].replace(',','.') ).toFixed(2),
+							"maxPrice": parseFloat( preise[index*2+1].replace(',','.') ).toFixed(2),
+							"menuName": index,
+							"closed": 0
 							};
 
 						if(fooditem.name.toLowerCase().indexOf("geschlossen") != -1
 							|| fooditem.name.toLowerCase().indexOf("keine ausg") != -1) {
 							fooditem.minPrice = "0";
 							fooditem.maxPrice = "0";
+							fooditem.closed = 1;
 						}
 
 						if(fooditem.name.indexOf("Änderungen vorb")) {
