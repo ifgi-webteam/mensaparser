@@ -41,9 +41,7 @@ var davinciparser = function(mensa) {
 
 			if(err) {
 				return console.error('error running query', err);
-			}		
-			//console.log(requestCounter);
-			//console.log(result);
+			}
 		});
 	}
 
@@ -60,72 +58,75 @@ var davinciparser = function(mensa) {
 		if(!error && response.statusCode == 200) {
 			var $ = cheerio.load(html);
 
-			var content = $("table.contentpaneopen tr:contains('Montag')").text();;
+			var content = $("table.contentpaneopen tr:contains('Montag')").text();
 
 			// Montag-Donnerstag
 			// iterate idList as week days
 			for (weekDay in idList) {
-				// Datum des Tages parsen
-				var dateToday = $( '#' + idList[weekDay] ).text().split(" ").pop().replace("\r\n", "");
 
-				// iterate over the 3 daily menus
-				for(var i = 1; i <= 3; i++) {
-					// Menu 3 / Vegetarisch nicht immer im Angebot
-					if($('#' + idList[weekDay] + '_menu' + i).length>0) {
-						// Preise variieren pro Tag & Menü
-						var preiseToday = $('#' + idList[weekDay] + '_menu' + i + "_preis");
-						var preise = [];
-						if(preiseToday.text().trim().length > 0) {
-							preise = preiseToday.text().match(/([0-9],[0-9]{2})/g);
+				try {
+					// Datum des Tages parsen
+					var dateToday = $( '#' + idList[weekDay] ).text().split(" ").pop().replace("\r\n", "");
+
+					// iterate over the 3 daily menus
+					for(var i = 1; i <= 3; i++) {
+						// Menu 3 / Vegetarisch nicht immer im Angebot
+						if($('#' + idList[weekDay] + '_menu' + i).length>0) {
+							// Preise variieren pro Tag & Menü
+							var preiseToday = $('#' + idList[weekDay] + '_menu' + i + "_preis");
+							var preise = ["0", "0"];
+							if(preiseToday.text().trim().length > 0) {
+								preise = preiseToday.text().match(/([0-9],[0-9]{2})/g);
+							}
+
+							// JSON Objekt für jedes Menü
+							var fooditem = {
+								"mensa": {
+									"name": mensa.name,
+									"uid": mensa.uid
+								},
+								"date": moment(dateToday, "DD.MM.YYYY").format('YYYY-MM-DD'),
+								"name": $( '#' + idList[weekDay] + "_menu" + i ).text(),
+								"minPrice": parseFloat( preise[0].replace(',','.') ).toFixed(2),
+								"maxPrice": parseFloat( preise[1].replace(',','.') ).toFixed(2),
+								"menuName": "Menü " + Array(i+1).join('I'),
+								"closed": 0
+							};
+
+							if(fooditem.name.toLowerCase().indexOf("geschlossen") != -1
+								|| fooditem.name.toLowerCase().indexOf("keine ausg") != -1) {
+								fooditem.minPrice = "0";
+								fooditem.maxPrice = "0";
+								fooditem.closed = 1;
+							}
+							console.log("" + fooditem.date + ": " + fooditem.name + " (" + fooditem.minPrice + "/" + fooditem.maxPrice + ")");
+							insertData(fooditem);
+						} else {
+							// If no data found, assume closed or parsing error and insert nothing
+							console.log("No results for "+idList[weekDay]+", assume closed");
+
+							/*
+							var fooditem = {
+								"mensa": {
+									"name": mensa.name,
+									"uid": mensa.uid
+								},
+								"date": moment(dateToday, "DD.MM.YYYY").format('YYYY-MM-DD'),
+								"name": "Geschlossen",
+								"minPrice": 0,
+								"maxPrice": 0,
+								"menuName": "Menü " + Array(i+1).join('I'),
+								"closed": 1
+							};
+							console.log("" + fooditem.date + ": " + fooditem.name + " (" + fooditem.minPrice + "/" + fooditem.maxPrice + ")");
+							insertData(fooditem);
+							*/
 						}
-						//console.log("Preise: ", preise);
-
-						// JSON Objekt für jedes Menü
-						var fooditem = {
-							"mensa": {
-								"name": mensa.name,
-								"uid": mensa.uid
-							},
-							"date": moment(dateToday, "DD.MM.YYYY").format('YYYY-MM-DD'),
-							"name": $( '#' + idList[weekDay] + "_menu" + i ).text(),
-							"minPrice": parseFloat( preise[0].replace(',','.') ).toFixed(2),
-							"maxPrice": parseFloat( preise[1].replace(',','.') ).toFixed(2),
-							"menuName": "Menü " + Array(i+1).join('I'),
-							"closed": 0
-						};
-
-						if(fooditem.name.toLowerCase().indexOf("geschlossen") != -1
-							|| fooditem.name.toLowerCase().indexOf("keine ausg") != -1) {
-							fooditem.minPrice = "0";
-							fooditem.maxPrice = "0";
-							fooditem.closed = 1;
-						}
-						console.log("" + fooditem.date + ": " + fooditem.name + " (" + fooditem.minPrice + "/" + fooditem.maxPrice + ")");
-						insertData(fooditem);
-					} else {
-						// If no data found, assume closed or parsing error and insert nothing
-						console.log("No results for "+idList[weekDay]+", assume closed");
-
-						/*
-						var fooditem = {
-							"mensa": {
-								"name": mensa.name,
-								"uid": mensa.uid
-							},
-							"date": moment(dateToday, "DD.MM.YYYY").format('YYYY-MM-DD'),
-							"name": "Geschlossen",
-							"minPrice": 0,
-							"maxPrice": 0,
-							"menuName": "Menü " + Array(i+1).join('I'),
-							"closed": 1
-						};
-						console.log("" + fooditem.date + ": " + fooditem.name + " (" + fooditem.minPrice + "/" + fooditem.maxPrice + ")");
-						insertData(fooditem);
-						*/
 					}
-
-				}
-			}
+				} catch(error) {
+					console.log("Failed getting menu for "+ '#' + idList[weekDay]);
+				} // end try..catch
+			} // end for (weekDay in idList)
 
 			// Freitag
 			/*
