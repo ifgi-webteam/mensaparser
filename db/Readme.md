@@ -1,0 +1,1 @@
+[PostgreSQL 9.4 Dockerfile](https://registry.hub.docker.com/_/postgres/) with custom initialization files for database schema and access configuration.
