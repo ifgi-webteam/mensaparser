@@ -1,7 +1,7 @@
 {
   "name": "mensaparser-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "Mensa Münster Parser Data API",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -16,5 +16,9 @@
     "restify": "^3.0.0",
     "xmlbuilder": "~2.6.2",
     "marked": "~0.3.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chk1/mensaparser.git"
   }
 }

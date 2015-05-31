@@ -195,11 +195,11 @@ server.get('/', respondHello);
 server.get('/all', respondAll);
 server.get('/mensen', respondMensen);
 server.get('/menu', respondCurrentMenu);
-server.get(/^\/menu\/([a-zA-Z0-9]{32})/, respondCurrentMenuByMensa);
+server.get(/^\/menu\/([a-zA-Z0-9]{4,32})/, respondCurrentMenuByMensa);
 
 // OpenMensa XML responses
-server.get(/^\/openmensa\/canteen\/([a-zA-Z0-9]{32})/, respondCurrentMenuByMensaXML);
-server.get(/^\/openmensa\/today\/([a-zA-Z0-9]{32})/, respondTodaysMenuByMensaXML);
+server.get(/^\/openmensa\/canteen\/([a-zA-Z0-9]{4,32})/, respondCurrentMenuByMensaXML);
+server.get(/^\/openmensa\/today\/([a-zA-Z0-9]{4,32})/, respondTodaysMenuByMensaXML);
 
 // Serve the docs
 // usage hints: http://stackoverflow.com/questions/15463841/serving-static-files-with-restify-node-js
