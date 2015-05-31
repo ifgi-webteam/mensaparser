@@ -1,7 +1,7 @@
 {
   "name": "mensaparser-parser",
   "version": "1.0.0",
-  "description": "",
+  "description": "Mensa Münster Parser",
   "main": "server.js",
   "dependencies": {
     "cheerio": "^0.18.0",

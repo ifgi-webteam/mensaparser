@@ -10,8 +10,9 @@ Bisher implementiert sind:
 * [Mensa am Aasee](http://www.studentenwerk-muenster.de/de/essen-a-trinken/mensen/mensa-am-aasee)
 * [Bistro Denkpause](http://www.studentenwerk-muenster.de/de/essen-a-trinken/bistros-a-cafes/denkpause)
 * [Mensa Da Vinci](http://www.studentenwerk-muenster.de/de/essen-a-trinken/mensen/da-vinci)
+* [Mensa Bispinghof](http://www.studentenwerk-muenster.de/essen-a-trinken/mensen/bispinghof)
 
-Jede Mensa hat drei wichtige Merkmale:
+Jede Mensa wird mit drei Merkmalen angelegt:
 
 ```Javascript
 var mensa = {
@@ -33,12 +34,13 @@ Eingesetzte Technologien:
 
 * PostgreSQL 9.4 mit `JSON` Unterstützung
 * NodeJS mit `cheerio` zum Parsen
+* go-cron zum anstoßen des wöchentlichen Parsens
 
-## Wie benutzen
+## Wie benutzen?
 
-PostgreSQL auf localhost starten, Daten in `parser_aasee_ring.js` eintragen und Parser ausführen:
+Auf dem manuellen Wege: PostgreSQL auf dem lokalen Rechner starten, den eigenen Datenbank-Login in die `parser_*.js` Dateien eintragen und dann den Parser ausführen:
 
-Einzeln:
+Einzelne Parser ausführen:
 
 ```bash
 cd mensen
@@ -47,7 +49,7 @@ nodejs mensen/ring.js
 // usw.
 ```
 
-Alle nacheinander:
+Alle Parser nacheinander ausführen mit `server.js`:
 
 ```bash
 cd mensen
