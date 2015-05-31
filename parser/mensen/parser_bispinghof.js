@@ -77,8 +77,8 @@ var bispinghofparser = function(mensa) {
 				//console.log(moment(today).format('YYYY-MM-DD'));
 
 				// iterate over the 3 daily menus
-				for(var i = 1; i <= 3; i++) {
-					var preiseToday = $('#menu' + i + "_preis");
+				for(var j = 1; j <= 3; j++) {
+					var preiseToday = $('#menu' + j + "_preis");
 					var preise = ["0", "0"];
 					if(preiseToday.text().trim().length > 0) {
 						preise = preiseToday.text().match(/([0-9],[0-9]{2})/g);
@@ -91,10 +91,10 @@ var bispinghofparser = function(mensa) {
 							"uid": mensa.uid
 						},
 						"date": moment(dateToday, "DD.MM.YYYY").format('YYYY-MM-DD'),
-						"name": $( '#menu' + i + '_menu' ).text(),
+						"name": $( '#menu' + j + '_menu' ).text(),
 						"minPrice": parseFloat( preise[0].replace(',','.') ).toFixed(2),
 						"maxPrice": parseFloat( preise[1].replace(',','.') ).toFixed(2),
-						"menuName": "Menü " + Array(i+1).join('I'),
+						"menuName": "Menü " + Array(j+1).join('I'),
 						"closed": 0
 					};
 					if(fooditem.name.toLowerCase().indexOf("geschloss") != -1
