@@ -1,6 +1,6 @@
 # Mensa API
 
-Query Mensa menus. The following commands are available:
+Query Mensa Münster (student canteens) food data. The following commands are available:
 
 * [/](#-)
 * [/all](#-all)
@@ -12,7 +12,7 @@ Query Mensa menus. The following commands are available:
 
 ## /
 
-Show a hint to take a look at /docs
+Show a hint to take a look at /docs.
 
 ## /all
 
@@ -20,7 +20,7 @@ List the last few database inserts, for debugging purposes.
 
 ##/mensen
 
-List all Mensas which have some menu currently available.
+List all canteens which have some menu currently available.
 
 Example query:
 
@@ -47,7 +47,7 @@ Example response:
 
 ## /menu
 
-Get the current menu for all available Mensas, date range from >last Sunday to next <=Sunday.
+Get the current menu for all available canteens, date range from >last Sunday to ≤next Sunday.
 
 Example query:
 
@@ -58,29 +58,31 @@ Example response:
 ```JSON
 [
   {
-    "id": 1,
     "data": {
-      "date": "2015-03-16",
-      "name": "Schweineschnitzel \"Jäger Art\"Teigwaren, BIO-Möhren",
+      "date": "2015-06-03",
+      "name": "Keine Ausgabe",
       "mensa": {
         "uid": "http://data.uni-muenster.de/context/uniaz/9b3af1a05cbfb372bc205d86760a6afa",
         "name": "Bistro Denkpause"
       },
-      "maxPrice": "3,05",
-      "minPrice": "2,45"
+      "closed": 1,
+      "maxPrice": "0",
+      "menuName": "Menü III",
+      "minPrice": "0"
     }
   },
   {
-    "id": 2,
     "data": {
-      "date": "2015-03-16",
-      "name": "Gemüseragout \"Toscana\" auf Spiralnudeln",
+      "date": "2015-06-02",
+      "name": "Nudel-Gemüseauflauf in Käse-Kräutersauce ",
       "mensa": {
-        "uid": "http://data.uni-muenster.de/context/uniaz/8ac770e149aa52077f85189c390e9571",
-        "name": "Mensa am Ring"
+        "uid": "http://data.uni-muenster.de/context/uniaz/70ad738c960cc5e88e5e8d8ac1b5975e",
+        "name": "Mensa am Aasee"
       },
-      "maxPrice": "2,90",
-      "minPrice": "2,30"
+      "closed": 0,
+      "maxPrice": "2.90",
+      "menuName": "Menü I",
+      "minPrice": "2.30"
     }
   }
 ]
@@ -88,28 +90,28 @@ Example response:
 
 ## /menu/:mensa
 
-Get the current menu for a Mensa specified by the 32 character identifier.
+Get the current menu for a canteen specified by the 32 character identifier.
 
 Example query:
 
 `/menu/70ad738c960cc5e88e5e8d8ac1b5975e`
 
-Response format same as `/menu`.
+Response format is the same as `[/menu](#-menu)`.
 
 
 ## /openmensa/canteen/:mensa
+
+Get the current week's menu for a canteen in [OpenMensa Feed v2 XML format](http://doc.openmensa.org/feed/v2/).
 
 Example query:
 
 `/openmensa/canteen/70ad738c960cc5e88e5e8d8ac1b5975e`
 
-Get the current week's menu for a Mensa in [OpenMensa Feed v2 XML format](http://doc.openmensa.org/feed/v2/).
-
 
 ## /openmensa/today/:mensa
+
+Get today's menu for a canteen in [OpenMensa Feed v2 XML format](http://doc.openmensa.org/feed/v2/).
 
 Example query:
 
 `/openmensa/today/70ad738c960cc5e88e5e8d8ac1b5975e`
-
-Get the today's menu for a Mensa in [OpenMensa Feed v2 XML format](http://doc.openmensa.org/feed/v2/).

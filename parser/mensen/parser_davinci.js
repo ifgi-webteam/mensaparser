@@ -93,7 +93,7 @@ var davinciparser = function(mensa) {
 								"closed": 0
 							};
 
-							if(fooditem.name.toLowerCase().indexOf("geschlossen") != -1
+							if(fooditem.name.toLowerCase().indexOf("geschloss") != -1
 								|| fooditem.name.toLowerCase().indexOf("keine ausg") != -1) {
 								fooditem.minPrice = "0";
 								fooditem.maxPrice = "0";

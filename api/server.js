@@ -35,7 +35,7 @@ function respondHello(req, res, next) {
 }
 
 /*
-	List all
+	List recent 30 inserts
 */
 function respondAll(req, res, next) {
 	queryDatabase("SELECT * FROM menus ORDER BY id DESC LIMIT 30", [], function(response) {
@@ -45,7 +45,7 @@ function respondAll(req, res, next) {
 }
 
 /*
-	Respond with the current Mensa menu
+	Respond with the current week's canteen menu
 */
 function respondCurrentMenu(req, res, next) {
 	var lastSunday = moment().day("Sunday");
@@ -60,7 +60,7 @@ function respondCurrentMenu(req, res, next) {
 }
 
 /*
-	List all available Mensas
+	List all available canteens
 */
 function respondMensen(req, res, next) {
 	console.log('respondMensen');
@@ -71,7 +71,7 @@ function respondMensen(req, res, next) {
 }
 
 /*
-	List menu by week nr.
+	List menu by week nr. [unused]
 */
 function respondMenuByWeek(req, res, next) {
 	var lastSunday = moment().day("Sunday");
@@ -86,7 +86,7 @@ function respondMenuByWeek(req, res, next) {
 }
 
 /*
-	List menu by Mensa via identifier string
+	List menu by canteen via identifier string
 */
 function respondCurrentMenuByMensa(req, res, next) {
 	var lastSunday = moment().day("Sunday");
@@ -138,7 +138,7 @@ function fetchXML(res, querystart, queryend, mensaid) {
 				for(var index2 in aDay) {
 					var aMenu = aDay[index2];
 					var omcategory = omday.ele('category').att('name', aMenu.menuName);
-					if(aMenu.name.indexOf("Geschlossen") != 0) {
+					if(aMenu.name.indexOf("Geschloss") != 0) {
 						var ommeal = omcategory.ele('meal')
 							.ele('name', aMenu.name)
 							.up()
@@ -209,6 +209,7 @@ server.get(/^\/docs\/?.*/, restify.serveStatic({
 	})
 );
 
+// log request address and IP to console
 server.pre(function(req, res, next) {
 	res.charSet('UTF-8');
 	var ip = req.headers['x-forwarded-for'] || 
