@@ -3,7 +3,7 @@
 Docker/Docker-Compose/Fig-Konfiguration, die einen Parser, eine Datenbank und eine API bereitstellt, um die Mensadaten des Studentenwerks Münster maschinenlesbar bereitzustellen.
 
 Verwendung der Daten bei
-* [WWU Campusplan App](https://app.uni-muenster.de) (demnächst)
+* [WWU Campusplan App](https://app.uni-muenster.de)
 * [OpenMensa](https://openmensa.org/#14/51.9654/7.6059)
 
 ## Komponenten
