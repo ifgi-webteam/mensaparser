@@ -33,8 +33,8 @@ var mensa = {
 Eingesetzte Technologien:
 
 * PostgreSQL 9.4 mit `JSON` Unterstützung
-* NodeJS mit `cheerio` zum Parsen
-* go-cron zum anstoßen des wöchentlichen Parsens
+* NodeJS mit `cheerio` zum Parsen, weitere Libraries in der [package.json](package.json)
+* [go-cron](https://github.com/robfig/cron) zum anstoßen des wöchentlichen Parsens
 
 ## Wie benutzen?
 
