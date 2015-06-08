@@ -1,5 +1,16 @@
-require('./mensen/aasee.js');
-require('./mensen/ring.js');
-require('./mensen/davinci.js');
-require('./mensen/denkpause.js');
-require('./mensen/bispinghof.js');
+var parsers = [
+	'aasee.js',
+	'ring.js',
+	'davinci.js',
+	'denkpause.js',
+	'bispinghof.js',
+	];
+
+for(p in parsers){
+	try {
+		require('./mensen/'+parsers[p]);
+	} catch(e) {
+		console.log('Error in '+parsers[p]);
+		console.log(e);
+	}
+}
