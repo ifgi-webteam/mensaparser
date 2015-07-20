@@ -52,7 +52,7 @@ var davinciparser = function(mensa) {
 		// cheerio library for html parsing
 		var cheerio = require('cheerio');
 		// html element id list for parsing & extracting data
-		var idList = [ "montag", "dienstag", "mittwoch", "donnerstag"]; // freitag extra behandeln unten
+		var idList = [ "montag", "dienstag", "mittwoch", "donnerstag", "freitag"]; // freitag extra behandeln unten
 
 		// check if request was successfull (html response code 200)
 		if(!error && response.statusCode == 200) {
@@ -128,7 +128,8 @@ var davinciparser = function(mensa) {
 				} // end try..catch
 			} // end for (weekDay in idList)
 
-			// Freitag			
+			// Freitag
+			/*
 			var contentFri = content.split(/(Freitag\s*[0-9]+\.[0-9]+\.[0-9]+)/);
 			var menusFriday = contentFri.pop().split(/Menü III|Menü II|Menü I|Vegetarisches Angebot/);
 			menusFriday.forEach(function(e, i, a){
@@ -155,6 +156,7 @@ var davinciparser = function(mensa) {
 					}
 				}
 			});
+			*/
 			
 
 		}
