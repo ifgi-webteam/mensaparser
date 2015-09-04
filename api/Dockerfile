@@ -7,8 +7,11 @@ FROM node:0.10
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-COPY . /usr/src/app/
+
+COPY package.json /usr/src/app/package.json
 RUN npm install
+
+COPY . /usr/src/app/
 RUN /usr/src/app/node_modules/marked/bin/marked /usr/src/app/docs.md > /usr/src/app/docs/index.html
 
 CMD ["sh", "delaystart.sh"]

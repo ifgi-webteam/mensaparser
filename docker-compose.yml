@@ -2,7 +2,7 @@ db:
   build: ./db
   environment:
     POSTGRES_USER: docker
-    POSTGRES_PASSWORD: docker123
+    POSTGRES_PASSWORD: mensaparser
 
 api:
   build: ./api
