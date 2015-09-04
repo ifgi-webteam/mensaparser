@@ -8,5 +8,5 @@ var mensa = {
 			"url": "http://www.studentenwerk-muenster.de/de/essen-a-trinken/mensen/mensa-am-aasee"
 };
 
-var mensaParser = require("./parser_aasee_ring.js");
+var mensaParser = require("./parsers/parser_aasee_ring.js");
 var r = new mensaParser.ringparser(mensa);

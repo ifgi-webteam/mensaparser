@@ -8,5 +8,5 @@ var mensa = {
 			"url": "http://www.studentenwerk-muenster.de/essen-a-trinken/mensen/bispinghof"
 };
 
-var bispinghofParser = require("./parser_bispinghof.js");
+var bispinghofParser = require("./parsers/parser_bispinghof.js");
 var r = new bispinghofParser.bispinghofparser(mensa);

@@ -8,5 +8,5 @@ var mensa = {
 			"url": "http://www.studentenwerk-muenster.de/de/essen-a-trinken/bistros-a-cafes/denkpause"
 };
 
-var bistroParser = require("./parser_bistro_denkpause.js");
+var bistroParser = require("./parsers/parser_bistro_denkpause.js");
 var r = new bistroParser.bistroparser(mensa);
