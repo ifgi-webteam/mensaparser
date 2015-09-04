@@ -1,7 +1,7 @@
 var restify = require('restify');
 var moment = require('moment');
 var pg = require('pg');
-var conString = "postgres://docker:docker123@db/docker";
+var conString = "postgres://docker:mensaparser@db/docker";
 var client = new pg.Client(conString);//a
 var xmlbuilder = require('xmlbuilder');
 
