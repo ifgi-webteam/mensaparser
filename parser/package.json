@@ -3,6 +3,16 @@
   "version": "1.0.0",
   "description": "Mensa Münster Parser",
   "main": "server.js",
+  "author": "Christoph Kisfeld",
+  "license": "MIT",
+  "homepage": "https://github.com/chk1/mensaparser",
+  "bugs": {
+    "url": "https://github.com/chk1/mensaparser/issues"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
   "dependencies": {
     "cheerio": "^0.18.0",
     "moment": "^2.9.0",
@@ -10,18 +20,8 @@
     "request": "^2.51.0",
     "when": "^3.6.4"
   },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/chk1/mensaparser.git"
-  },
-  "author": "",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/chk1/mensaparser/issues"
-  },
-  "homepage": "https://github.com/chk1/mensaparser"
+  }
 }

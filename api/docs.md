@@ -18,7 +18,7 @@ Show a hint to take a look at /docs.
 
 List the last few database inserts, for debugging purposes.
 
-##/mensen
+## /mensen
 
 List all canteens which have some menu currently available.
 
@@ -96,7 +96,7 @@ Example query:
 
 `/menu/70ad738c960cc5e88e5e8d8ac1b5975e`
 
-Response format is the same as `[/menu](#-menu)`.
+Response format is the same as [`/mensen`](#-mensen).
 
 
 ## /openmensa/canteen/:mensa

@@ -3,19 +3,24 @@
   "version": "1.0.0",
   "description": "Mensa Münster Parser Data API",
   "main": "server.js",
+  "author": "Christoph Kisfeld",
+  "license": "MIT",
+  "homepage": "https://github.com/chk1/mensaparser",
+  "bugs": {
+    "url": "https://github.com/chk1/mensaparser/issues"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "",
-  "license": "MIT",
   "dependencies": {
     "http": "0.0.0",
     "moment": "^2.9.0",
     "pg": "^4.2.0",
     "restify": "^3.0.0",
     "xmlbuilder": "~2.6.2",
-    "marked": "~0.3.3"
+    "marked": "~0.3.3",
+    "highlight.js-cli": "chk1/highlight.js-cli#b09ea24"
   },
   "repository": {
     "type": "git",
