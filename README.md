@@ -1,8 +1,11 @@
 # Mensaparser in Docker
 
+[![Dependency Status](https://gemnasium.com/chk1/mensaparser.svg)](https://gemnasium.com/chk1/mensaparser)
+[![Code Climate](https://codeclimate.com/github/chk1/mensaparser/badges/gpa.svg)](https://codeclimate.com/github/chk1/mensaparser)
+
 Docker/Docker-Compose/Fig-Konfiguration, die einen Parser, eine Datenbank und eine API bereitstellt, um die Mensadaten des Studentenwerks Münster maschinenlesbar bereitzustellen.
 
-Verwendung der Daten bei
+Aktuell werden die Daten verwendet bei:
 * [WWU Campusplan App](https://app.uni-muenster.de)
 * [OpenMensa](https://openmensa.org/#14/51.9654/7.6059)
 
@@ -12,19 +15,15 @@ Weitere Infos in den READMEs in den Ordnern der jeweiligen Komponenten.
 
 ### db
 
-Docker Container mit PostgreSQL Datenbank v. 9.4 mit `JSONB` Unterstützung.
+Docker Container mit PostgreSQL Datenbank v. 9.4 mit `JSONB` Unterstützung, der die geparsten Daten speichert.
 
 ### api
 
-Docker Container mit NodeJS Webserver, stellt Daten im `JSON` Format bereit.
+Docker Container mit NodeJS Webserver, stellt Daten im `JSON` bzw. XML-Format für die Nutzung bereit.
 
 ### parser
 
-Docker Container mit NodeJS Parser, der die Daten in die Datenbank einträgt.
-
-### delaystart.sh Script
-
-Wartet 12 Sekunden, damit der Datenbankcontainer fertig starten kann, bevor die NodeJS Scripte anfangen zu arbeiten.
+Docker Container mit NodeJS Parser, der die Mensadaten vom Studentenwerk abruft in die Datenbank einträgt.
 
 ## Starten
 
