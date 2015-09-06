@@ -104,7 +104,9 @@ function fetchXML(res, querystart, queryend, mensaid) {
 			for(var index in response.rows) {
 				if(response.rows.hasOwnProperty(index)){
 					var aMenu = response.rows[index].data;
-					if(menuByDay[aMenu.date] === null) menuByDay[aMenu.date] = [];
+					if(!menuByDay.hasOwnProperty(aMenu.date)) {
+						menuByDay[aMenu.date] = [];
+					}
 					menuByDay[aMenu.date].push(aMenu);
 				}
 			}
@@ -127,8 +129,8 @@ function fetchXML(res, querystart, queryend, mensaid) {
 						if(aDay.hasOwnProperty(index2)) {
 							var aMenu = aDay[index2];
 							var omcategory = omday.ele('category').att('name', aMenu.menuName);
-							if(aMenu.name.indexOf("Geschloss") !== 0) {
-								omcategory.ele('meal')
+							if(aMenu.name.toLowerCase().indexOf("Geschloss") !== 0) {
+								var f = omcategory.ele('meal')
 									.ele('name', aMenu.name)
 									.up()
 									.ele('price', aMenu.minPrice)
@@ -178,7 +180,12 @@ function respondTodaysMenuByMensaXML(req, res, next) {
 	next();
 }
 
-var server = restify.createServer();
+var server = restify.createServer().
+	on('after', function(req,resp,route,err){
+		if(err){
+			console.log(err);
+		}
+	});
 server.use(restify.fullResponse()); // enable CORS
 
 // JSON responses
@@ -207,7 +214,9 @@ server.pre(function(req, res, next) {
 		req.connection.remoteAddress || 
 		req.socket.remoteAddress ||
 		req.connection.socket.remoteAddress;
-	console.log('Query by '+ip);
+	console.log(
+		'['+moment(req._time, 'x').format()+']', ip, '"'+req.method, req.url+'"'
+	);
 	return next();
 });
 
