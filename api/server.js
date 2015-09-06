@@ -71,21 +71,6 @@ function respondMensen(req, res, next) {
 }
 
 /*
-	List menu by week nr. [unused]
-*/
-function respondMenuByWeek(req, res, next) {
-	var lastSunday = moment().day("Sunday");
-	var nextSunday = moment().day("Sunday").add(7, 'days');
-	console.log('respondMenuByWeek:', 'Query between ', lastSunday.format("YYYY-MM-DD"), nextSunday.format("YYYY-MM-DD"));
-	queryDatabase("SELECT data FROM menus WHERE data->>'date' > $1 AND data->>'date' < $2 ", 
-		[lastSunday.format("YYYY-MM-DD"), nextSunday.format("YYYY-MM-DD")],
-		function(response) {
-		res.send( response.rows );
-		next();
-	});
-}
-
-/*
 	List menu by canteen via identifier string
 */
 function respondCurrentMenuByMensa(req, res, next) {
@@ -117,9 +102,11 @@ function fetchXML(res, querystart, queryend, mensaid) {
 			// preprocess the database response and group by date
 			var menuByDay = {};
 			for(var index in response.rows) {
-				var aMenu = response.rows[index].data;
-				if(menuByDay[aMenu.date] === null) menuByDay[aMenu.date] = [];
-				menuByDay[aMenu.date].push(aMenu);
+				if(response.rows.hasOwnProperty(index)){
+					var aMenu = response.rows[index].data;
+					if(menuByDay[aMenu.date] === null) menuByDay[aMenu.date] = [];
+					menuByDay[aMenu.date].push(aMenu);
+				}
 			}
 
 			// create the XML root
@@ -129,33 +116,37 @@ function fetchXML(res, querystart, queryend, mensaid) {
 				.att('xmlns', "http://openmensa.org/open-mensa-v2")
 				.att('xmlns:xsi', "http://www.w3.org/2001/XMLSchema-instance")
 				.att('xsi:schemaLocation', "http://openmensa.org/open-mensa-v2 http://openmensa.org/open-mensa-v2.xsd")
-			.ele('canteen');
+				.ele('canteen');
 
 			// add meals from our sorted object
 			for(var index in menuByDay) {
-				var aDay = menuByDay[index];
-				var omday = xml.ele('day').att('date', aDay[0].date);
-				for(var index2 in aDay) {
-					var aMenu = aDay[index2];
-					var omcategory = omday.ele('category').att('name', aMenu.menuName);
-					if(aMenu.name.indexOf("Geschloss") !== 0) {
-						omcategory.ele('meal')
-							.ele('name', aMenu.name)
-							.up()
-							.ele('price', aMenu.minPrice)
-							  .att('role', 'student')
-							.up()
-							.ele('price', aMenu.maxPrice)
-							  .att('role', 'other');
+				if(menuByDay.hasOwnProperty(index)) {
+					var aDay = menuByDay[index];
+					var omday = xml.ele('day').att('date', aDay[0].date);
+					for(var index2 in aDay) {
+						if(aDay.hasOwnProperty(index2)) {
+							var aMenu = aDay[index2];
+							var omcategory = omday.ele('category').att('name', aMenu.menuName);
+							if(aMenu.name.indexOf("Geschloss") !== 0) {
+								omcategory.ele('meal')
+									.ele('name', aMenu.name)
+									.up()
+									.ele('price', aMenu.minPrice)
+									  .att('role', 'student')
+									.up()
+									.ele('price', aMenu.maxPrice)
+									  .att('role', 'other');
+							}
+							// check length of category, if 0 then mark mensa as closed (see below)
+							if(omcategory.children.length === 0) {
+								omcategory.remove();
+							}
+						}
 					}
-					// check length of category, if 0 then mark mensa as closed (see below)
-					if(omcategory.children.length === 0) {
-						omcategory.remove();
+					// check occurences of 'category' element, if 0 then mark mensa as closed
+					if(omday.children.length === 0) {
+						omday.ele('closed');
 					}
-				}
-				// check occurences of 'category' element, if 0 then mark mensa as closed
-				if(omday.children.length == 0) {
-					omday.ele('closed');
 				}
 			}
 
