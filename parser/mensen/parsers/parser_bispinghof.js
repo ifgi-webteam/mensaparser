@@ -1,10 +1,9 @@
 var bispinghofparser = function(mensa) {
 	var parser = require('./parser');
 	var request = require('request');
-	request(mensa.url, process);
 
 	// process the html data and find the data we are interested in
-	function process(error, response, html) {
+	request(mensa.url, function(error, response, html) {
 		// moment library for date conversion
 		var moment = require("moment");
 		// cheerio library for html parsing
@@ -13,7 +12,7 @@ var bispinghofparser = function(mensa) {
 		var idList = [ "montag", "dienstag", "mittwoch", "donnerstag", "freitag" ];
 
 		// check if request was successfull (html response code 200)
-		if(!error && response.statusCode == 200) {
+		if(!error && response.statusCode === 200) {
 			var $ = cheerio.load(html);
 
 			var content = $("table.contentpaneopen").text();
@@ -53,8 +52,8 @@ var bispinghofparser = function(mensa) {
 						"menuName": "Menü " + Array(j+1).join('I'),
 						"closed": 0
 					};
-					if(fooditem.name.toLowerCase().indexOf("geschloss") != -1
-						|| fooditem.name.toLowerCase().indexOf("keine ausg") != -1) {
+					if( (fooditem.name.toLowerCase().indexOf("geschloss") !== -1) ||
+						(fooditem.name.toLowerCase().indexOf("keine ausg") !== -1)) {
 						fooditem.minPrice = "0";
 						fooditem.maxPrice = "0";
 						fooditem.closed = 1;
@@ -64,7 +63,7 @@ var bispinghofparser = function(mensa) {
 				}
 			}			
 		}
-	}
+	});
 }
 
 module.exports.bispinghofparser = bispinghofparser;

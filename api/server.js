@@ -118,7 +118,7 @@ function fetchXML(res, querystart, queryend, mensaid) {
 			var menuByDay = {};
 			for(var index in response.rows) {
 				var aMenu = response.rows[index].data;
-				if(menuByDay[aMenu.date] == null) menuByDay[aMenu.date] = [];
+				if(menuByDay[aMenu.date] === null) menuByDay[aMenu.date] = [];
 				menuByDay[aMenu.date].push(aMenu);
 			}
 
@@ -138,8 +138,8 @@ function fetchXML(res, querystart, queryend, mensaid) {
 				for(var index2 in aDay) {
 					var aMenu = aDay[index2];
 					var omcategory = omday.ele('category').att('name', aMenu.menuName);
-					if(aMenu.name.indexOf("Geschloss") != 0) {
-						var ommeal = omcategory.ele('meal')
+					if(aMenu.name.indexOf("Geschloss") !== 0) {
+						omcategory.ele('meal')
 							.ele('name', aMenu.name)
 							.up()
 							.ele('price', aMenu.minPrice)
@@ -149,7 +149,7 @@ function fetchXML(res, querystart, queryend, mensaid) {
 							  .att('role', 'other');
 					}
 					// check length of category, if 0 then mark mensa as closed (see below)
-					if(omcategory.children.length == 0) {
+					if(omcategory.children.length === 0) {
 						omcategory.remove();
 					}
 				}
@@ -218,7 +218,7 @@ server.pre(function(req, res, next) {
 		req.connection.socket.remoteAddress;
 	console.log('Query by '+ip);
 	return next();
-})
+});
 
 server.listen(9000, function() {
 	console.log('%s listening at %s', server.name, server.url);

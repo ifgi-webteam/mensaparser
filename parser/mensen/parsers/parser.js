@@ -40,8 +40,9 @@ var insertData = function(toInsert) {
 		}
 
 		if(err) {
-			if(err.code=='23505')
+			if(err.code==='23505'){
 				return console.error('Ignoring duplicate');
+			}
 			return console.error('Error running query', err);
 		}
 		//console.log(requestCounter);

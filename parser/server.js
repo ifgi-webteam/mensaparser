@@ -6,11 +6,13 @@ var parsers = [
 	'bispinghof.js',
 	];
 
-for(p in parsers){
-	try {
-		require('./mensen/'+parsers[p]);
-	} catch(e) {
-		console.log('Error in '+parsers[p]);
-		console.log(e);
+for(var p in parsers){
+	if(parsers.hasOwnProperty(p)){
+		try {
+			require('./mensen/'+parsers[p]);
+		} catch(e) {
+			console.log('Error in '+parsers[p]);
+			console.log(e);
+		}
 	}
 }

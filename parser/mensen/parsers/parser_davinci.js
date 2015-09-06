@@ -1,10 +1,9 @@
 var davinciparser = function(mensa) {
 	var parser = require('./parser');
 	var request = require('request');
-	request(mensa.url, process);
 
 	// process the html data and find the data we are interested in
-	function process(error, response, html) {
+	request(mensa.url, function(error, response, html) {
 		// moment library for date conversion
 		var moment = require("moment");
 		// cheerio library for html parsing
@@ -13,15 +12,15 @@ var davinciparser = function(mensa) {
 		var idList = [ "montag", "dienstag", "mittwoch", "donnerstag", "freitag"]; // freitag extra behandeln unten
 
 		// check if request was successfull (html response code 200)
-		if(!error && response.statusCode == 200) {
+		if(!error && response.statusCode === 200) {
 			var $ = cheerio.load(html);
 
 			var content = $("table.contentpaneopen tr:contains('Montag')").text();
 
 			// Montag-Donnerstag
 			// iterate idList as week days
-			for (weekDay in idList) {
-
+			for (var weekDay in idList) {
+				if(idList.hasOwnProperty(weekDay)){
 				try {
 					// Datum des Tages parsen
 					var dateToday = $( '#' + idList[weekDay] ).text().split(" ").pop().replace("\r\n", "");
@@ -47,12 +46,12 @@ var davinciparser = function(mensa) {
 								"name": $( '#' + idList[weekDay] + "_menu" + i ).text(),
 								"minPrice": parseFloat( preise[0].replace(',','.') ).toFixed(2),
 								"maxPrice": parseFloat( preise[1].replace(',','.') ).toFixed(2),
-								"menuName": "Menü " + Array(i+1).join('I'),
+								"menuName": "Menü " + (new Array(i+1)).join('I'),
 								"closed": 0
 							};
 
-							if(fooditem.name.toLowerCase().indexOf("geschloss") != -1
-								|| fooditem.name.toLowerCase().indexOf("keine ausg") != -1) {
+							if( (fooditem.name.toLowerCase().indexOf("geschloss") != -1) ||
+								(fooditem.name.toLowerCase().indexOf("keine ausg") != -1)) {
 								fooditem.minPrice = "0";
 								fooditem.maxPrice = "0";
 								fooditem.closed = 1;
@@ -84,6 +83,7 @@ var davinciparser = function(mensa) {
 				} catch(error) {
 					console.log("Failed getting menu for "+ '#' + idList[weekDay]);
 				} // end try..catch
+				} // end if
 			} // end for (weekDay in idList)
 
 			// Freitag
@@ -115,10 +115,9 @@ var davinciparser = function(mensa) {
 				}
 			});
 			*/
-			
 
 		}
-	}
+	});
 }
 
 module.exports.davinciparser = davinciparser;
