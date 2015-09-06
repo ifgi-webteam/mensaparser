@@ -14,10 +14,9 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "http": "0.0.0",
     "moment": "^2.9.0",
     "pg": "^4.2.0",
-    "restify": "^3.0.0",
+    "restify": "^4.0.0",
     "xmlbuilder": "~2.6.2",
     "marked": "~0.3.3",
     "highlight.js-cli": "chk1/highlight.js-cli#b09ea24"
