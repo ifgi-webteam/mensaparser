@@ -20,8 +20,8 @@ var bispinghofparser = function(mensa) {
 
 			// calculate the weekday dates from the title 
 			// because there's only 1 food plan for the whole week
-			var dateString = $("td#woche h2").text().trim();
-			var weekDates = dateString.match(/Wochenspeiseplan\s+([0-9]{2}\.[0-9]{2}\.[0-9]{4}).+([0-9]{2}\.[0-9]{2}\.[0-9]{4})$/);
+			var dateString = $("td#woche").text().trim();
+			var weekDates = dateString.match(/Wochenspeiseplan\s+([0-9]{2}\.[0-9]{2}\.[0-9]{4}).+([0-9]{2}\.[0-9]{2}\.[0-9]{4})/);
 
 			//weekDates[1] // monday
 			//weekDates[2] // friday
