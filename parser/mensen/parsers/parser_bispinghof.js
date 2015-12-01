@@ -36,7 +36,8 @@ var bispinghofparser = function(mensa) {
 					var preiseToday = $('#menu' + j + "_preis");
 					var preise = ["0", "0"];
 					if(preiseToday.text().trim().length > 0) {
-						preise = preiseToday.text().match(/([0-9],[0-9]{2})/g);
+						preise = preiseToday.text().match(/([0-9],[0-9]{2})/g);// /Stud\.\s*(\d,\d{2})\s*€\/\s*Bedienst\.\s*(\d,\d{2})\s*€\/Gäste\s*(\d,\d{2})\s*€/g
+						console.log(preiseToday.text().trim());
 					}
 
 					// JSON Objekt für jedes Menü

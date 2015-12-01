@@ -26,7 +26,15 @@ var ringparser = function(mensa) {
 			// preise[6] (Menü 3 Sonst.)
 			var content = $("table.contentpaneopen").text();
 			//console.log(content);
-			var preise = content.match(/[0P]reise\s*Stud.\s*\/\s*Sonst.\s*Menü\s*I\s*([0-9],[0-9]+)\s*€\s*\/\s*([0-9],[0-9]+)\s*€\s*Menü\s*II\s*([0-9],[0-9]+)\s*€\s*\/\s*([0-9],[0-9]+)\s*€\s*Menü\s*III\s*([0-9],[0-9]+)\s*€\s*\/\s*([0-9],[0-9]+)\s*€/);
+			//var preise = content.match(/[0P]reise\s*Stud.\s*\/\s*Sonst.\s*Menü\s*I\s*([0-9],[0-9]+)\s*€\s*\/\s*([0-9],[0-9]+)\s*€\s*Menü\s*II\s*([0-9],[0-9]+)\s*€\s*\/\s*([0-9],[0-9]+)\s*€\s*Menü\s*III\s*([0-9],[0-9]+)\s*€\s*\/\s*([0-9],[0-9]+)\s*€/);
+			var preiseI = content.match(/Menü\s*I\s*(\d,\d+)\s*€\s*\/\s*(\d,\d+)\s*€\s*(\d,\d+)\s*€\s*\/\s*(\d,\d+)\s*€\s*\/\s*(\d,\d+)\s*€/);
+			var preiseII = content.match(/Menü\s*II\s*(\d,\d+)\s*€\s*\/\s*(\d,\d+)\s*€\s*(\d,\d+)\s*€\s*\/\s*(\d,\d+)\s*€\s*\/\s*(\d,\d+)\s*€/);
+			var preiseIII = content.match(/Menü\s*III\s*(\d,\d+)\s*€\s*\/\s*(\d,\d+)\s*€\s*(\d,\d+)\s*€\s*\/\s*(\d,\d+)\s*€\s*\/\s*(\d,\d+)\s*€/);
+
+			var preise = [ preiseI[3], preiseI[5],
+				preiseII[3], preiseII[5],
+				preiseIII[3], preiseIII[5] ];
+			//console.log(preise);
 
 			// iterate idList as week days
 			for (var weekDay in idList) { // mo, di, mi, do, fr
@@ -44,8 +52,8 @@ var ringparser = function(mensa) {
 							},
 							"date": moment(dateToday, "DD.MM.YYYY").format('YYYY-MM-DD'),
 							"name": $( '#' + idList[weekDay] + "_menu" + i ).text(),
-							"minPrice": parseFloat( preise[i*2-1].replace(',','.') ).toFixed(2),
-							"maxPrice": parseFloat( preise[i*2].replace(',','.') ).toFixed(2),
+							"minPrice": parseFloat( preise[i*2-2].replace(',','.') ).toFixed(2),
+							"maxPrice": parseFloat( preise[i*2-1].replace(',','.') ).toFixed(2),
 							"menuName": "Menü " + (new Array(i+1)).join('I'),
 							"closed": 0
 						};

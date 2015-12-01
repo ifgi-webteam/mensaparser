@@ -33,7 +33,11 @@ var davinciparser = function(mensa) {
 							var preiseToday = $('#' + idList[weekDay] + '_menu' + i + "_preis");
 							var preise = ["0", "0"];
 							if(preiseToday.text().trim().length > 0) {
-								preise = preiseToday.text().match(/([0-9],[0-9]{2})/g);
+								preiseStud = preiseToday.text().match(/Stud\.\s*(\d,\d{2})\s*€/);
+								preiseGuest = preiseToday.text().match(/(Sonst|Gäste)\.?\s*(\d,\d{2})\s*€/); 
+								if(preiseGuest && preiseStud){
+									preise = [ preiseStud[1], preiseGuest[2] ];
+								}
 							}
 
 							// JSON Objekt für jedes Menü
@@ -81,6 +85,7 @@ var davinciparser = function(mensa) {
 						}
 					}
 				} catch(error) {
+					console.log(error);
 					console.log("Failed getting menu for "+ '#' + idList[weekDay]);
 				} // end try..catch
 				} // end if
