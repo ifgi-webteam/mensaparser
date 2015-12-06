@@ -27,13 +27,13 @@ var ringparser = function(mensa) {
 			var content = $("table.contentpaneopen").text();
 			//console.log(content);
 			//var preise = content.match(/[0P]reise\s*Stud.\s*\/\s*Sonst.\s*Menü\s*I\s*([0-9],[0-9]+)\s*€\s*\/\s*([0-9],[0-9]+)\s*€\s*Menü\s*II\s*([0-9],[0-9]+)\s*€\s*\/\s*([0-9],[0-9]+)\s*€\s*Menü\s*III\s*([0-9],[0-9]+)\s*€\s*\/\s*([0-9],[0-9]+)\s*€/);
-			var preiseI = content.match(/Menü\s*I\s*(\d,\d+)\s*€\s*\/\s*(\d,\d+)\s*€\s*(\d,\d+)\s*€\s*\/\s*(\d,\d+)\s*€\s*\/\s*(\d,\d+)\s*€/);
-			var preiseII = content.match(/Menü\s*II\s*(\d,\d+)\s*€\s*\/\s*(\d,\d+)\s*€\s*(\d,\d+)\s*€\s*\/\s*(\d,\d+)\s*€\s*\/\s*(\d,\d+)\s*€/);
-			var preiseIII = content.match(/Menü\s*III\s*(\d,\d+)\s*€\s*\/\s*(\d,\d+)\s*€\s*(\d,\d+)\s*€\s*\/\s*(\d,\d+)\s*€\s*\/\s*(\d,\d+)\s*€/);
+			var preiseI = content.match(/Menü\s*I\s*(\d,\d+)\s*€\s*\/\s*(\d,\d+)\s*€\s*\/\s*(\d,\d+)\s*€/);
+			var preiseII = content.match(/Menü\s*II\s*(\d,\d+)\s*€\s*\/\s*(\d,\d+)\s*€\s*\/\s*(\d,\d+)\s*€/);
+			var preiseIII = content.match(/Menü\s*III\s*(\d,\d+)\s*€\s*\/\s*(\d,\d+)\s*€\s*\/\s*(\d,\d+)\s*€/);
 
-			var preise = [ preiseI[3], preiseI[5],
-				preiseII[3], preiseII[5],
-				preiseIII[3], preiseIII[5] ];
+			var preise = [ preiseI[1], preiseI[3],
+				preiseII[1], preiseII[3],
+				preiseIII[1], preiseIII[3] ];
 			//console.log(preise);
 
 			// iterate idList as week days

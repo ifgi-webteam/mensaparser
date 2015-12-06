@@ -1,7 +1,7 @@
 var parsers = [
 	'aasee.js',
 	'ring.js',
-	'davinci.js',
+	//'davinci.js',
 	//'denkpause.js',
 	//'bispinghof.js',
 	];
