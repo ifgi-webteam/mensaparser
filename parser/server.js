@@ -1,9 +1,9 @@
 var parsers = [
 	'aasee.js',
 	'ring.js',
-	//'davinci.js',
-	//'denkpause.js',
-	//'bispinghof.js',
+	'davinci.js',
+	'denkpause.js',
+	'bispinghof.js',
 	];
 
 for(var p in parsers){

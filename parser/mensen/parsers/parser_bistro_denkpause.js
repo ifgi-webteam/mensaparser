@@ -22,17 +22,15 @@ var bistroparser = function(mensa){
 			// preise[1] (Menü 1 Sonst.), 
 			// preise[2] (Menü 2 Student), 
 			// preise[3] (Menü 2 Sonst.), 
-			// preise[4] (Menü 3 Student),
-			// preise[5] (Menü 3 Sonst.),
-			// preise[6] (Eintopf Student),
-			// preise[7] (Eintopf Sonst.)
-			var preiseMatch = contentElement.text().match(/([0-9],[0-9]{2}) €\/Sonst. ([0-9],[0-9]{2})/g);
+			// preise[4] (Eintopf Student),
+			// preise[5] (Eintopf Sonst.)
+			var preiseMatch = contentElement.text().match(/Stud\. (\d,\d\d) €\/Bediens?t\.? (\d,\d\d) €\/Gäste (\d,\d\d) €/g);
 			var preisePartials = [];
 			var preise = [];
 			preiseMatch.forEach(function(el, index, array){
-				var parts = el.match(/([0-9],[0-9]{2}) €\/Sonst. ([0-9],[0-9]{2})/);
+				var parts = el.match(/Stud\. (\d,\d\d) €\/Bediens?t\.? (\d,\d\d) €\/Gäste (\d,\d\d) €/);
 				preisePartials.push(parts[1]);
-				preisePartials.push(parts[2]);
+				preisePartials.push(parts[3]);
 			});
 			preise[0] = preisePartials[0];
 			preise[1] = preisePartials[1];
@@ -40,8 +38,6 @@ var bistroparser = function(mensa){
 			preise[3] = preisePartials[1];
 			preise[4] = preisePartials[2];
 			preise[5] = preisePartials[3];
-			preise[6] = preisePartials[4];
-			preise[7] = preisePartials[5];
 			//console.log("Preise: ", preisePartials, preise);
 
 			// Tägliche Menüs
@@ -55,7 +51,7 @@ var bistroparser = function(mensa){
 				var menusTodayAll = weekdayTables[i*3];
 
 				// III, II, I in absteigender Reihenfolge
-				var menusToday = menusTodayAll.split(/Menü III|Menü II|Menü I|Eintopf/)
+				var menusToday = menusTodayAll.split(/Menü II|Menü I|Eintopf/)
 					.filter(function(el){
 						// leere Elemente rausfiltern
 						return el.trim().length!=0;
