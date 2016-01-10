@@ -25,6 +25,7 @@ var bispinghofparser = function(mensa) {
 
 			//weekDates[1] // monday
 			//weekDates[2] // friday
+			console.log(weekDates);
 			var monday = moment(weekDates[1], "DD.MM.YYYY");
 
 			for(var i = 0; i < 5; i++) {
