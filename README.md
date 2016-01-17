@@ -3,7 +3,7 @@
 [![Dependency Status](https://gemnasium.com/chk1/mensaparser.svg)](https://gemnasium.com/chk1/mensaparser)
 [![Code Climate](https://codeclimate.com/github/chk1/mensaparser/badges/gpa.svg)](https://codeclimate.com/github/chk1/mensaparser)
 
-Docker/Docker-Compose/Fig-Konfiguration, die einen Parser, eine Datenbank und eine API bereitstellt, um die Mensadaten des Studentenwerks Münster maschinenlesbar bereitzustellen.
+Docker-Compose-Konfiguration, die einen Parser, eine Datenbank und eine API bereitstellt, um die Mensadaten des Studentenwerks Münster maschinenlesbar bereitzustellen.
 
 Aktuell werden die Daten verwendet bei:
 * [WWU Campusplan App](https://app.uni-muenster.de)
@@ -32,7 +32,7 @@ Repository clonen, dann
 ```bash
 cd mensaparser
 sudo docker-compose build
-sudo docker-compose up # or 'fig up' if you are on an older version of Docker
+sudo docker-compose up
 ```
 
 Die Container werden gestartet und ein erster Parser-Durchgang wird angestoßen. Danach wiederholt sich das Parsen jede Sonntag Nacht per Cronjob automatisch.
