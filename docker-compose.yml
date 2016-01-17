@@ -3,6 +3,11 @@ db:
   environment:
     POSTGRES_USER: docker
     POSTGRES_PASSWORD: mensaparser
+  log_driver: "json-file"
+  log_opt:
+    max-size: "10k"
+    max-file: "5"
+
 
 api:
   build: ./api
@@ -12,8 +17,16 @@ api:
     - "9000:9000"
 #  volumes:
 #    - ./api:/usr/src/app/
+  log_driver: "json-file"
+  log_opt:
+    max-size: "10k"
+    max-file: "5"
 
 parser:
   build: ./parser
   links:
     - db
+  log_driver: "json-file"
+  log_opt:
+    max-size: "10k"
+    max-file: "5"
