@@ -8,5 +8,8 @@ var mensa = {
 			"url": "http://www.studentenwerk-muenster.de/de/essen-a-trinken/mensen/da-vinci"
 };
 
-var davinciParser = require("./parsers/parser_davinci.js");
-var r = new davinciParser.davinciparser(mensa);
+//var davinciParser = require("./parsers/parser_davinci.js");
+//var r = new davinciParser.davinciparser(mensa);
+
+var bispinghofParser = require("./parsers/parser_text.js");
+var r = new bispinghofParser.textparser(mensa);

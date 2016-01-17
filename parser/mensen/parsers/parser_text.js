@@ -4,8 +4,6 @@ var textParser = function(mensa) {
 	var moment = require("moment");
 
 	function submitJson(menuDate, menuType, menuName, menuPrices) {
-		console.log(menuDate, menuType, menuName, menuPrices);
-
 		var fooditem = {
 			"mensa": {
 				"name": mensa.name,
@@ -25,7 +23,7 @@ var textParser = function(mensa) {
 			fooditem.maxPrice = "0";
 			fooditem.closed = 1;
 		}
-		console.log("" + fooditem.date + ": " + fooditem.name + " (" + fooditem.minPrice + "/" + fooditem.maxPrice + ")");
+		console.log(""+ fooditem.date + " " + fooditem.menuName + ": " + fooditem.name + " (" + fooditem.minPrice + "/" + fooditem.maxPrice + ")");
 		parser.insertData(fooditem);
 	}
 
@@ -41,8 +39,18 @@ var textParser = function(mensa) {
 			var $ = cheerio.load(html);
 
 			$("table.contentpaneopen br").replaceWith("\n");
-			var content = $("table.contentpaneopen > tr > td p:nth-of-type(1)").text();
-			var contentByLine = content.split("\n")
+			var content = $("table.contentpaneopen").text();
+			var contentByLine = content.split(/(?:\r)?\n/)
+
+			// trim every entry
+			for(var i in contentByLine) {
+				contentByLine[i] = contentByLine[i].trim();
+			}
+			// remove empty entries
+			contentByLine = contentByLine.filter(function(value){
+				return value!=='';
+			});
+			//console.log(contentByLine);
 
 			// kind-of state machine for parsing each line of the menu
 			var inContent = true;
@@ -53,6 +61,8 @@ var textParser = function(mensa) {
 			var endString = "In den Menüpreisen";
 			try {
 				for(var i=0; i < contentByLine.length; i++) {
+					var s = contentByLine[i].trim();
+
 					if(!inContent) break;
 
 					if((_date = contentByLine[i].match(/(Montag|Dienstag|Mittwoch|Donnerstag|Freitag)\s+([0-9]{2}\.[0-9]{2}\.[0-9]{4})/))) {
@@ -63,7 +73,7 @@ var textParser = function(mensa) {
 					if(menuDate && (_type = contentByLine[i].match(/(Menü (III|II|I)|Tagesaktion)/))) {
 						menuType = _type[0];
 						menuName = contentByLine[i+1];
-						var _menuPrices = contentByLine[i+2].match(/Stud\.\s*(\d,\d{2})\s*€.+Gäste\s*(\d,\d{2})\s*€/);
+						var _menuPrices = contentByLine[i+2].match(/Stud\.\s*(\d,\d{2})\s*€.+Gäste\.?\s*(\d,\d{2})\s*€/);
 						menuPrices = [_menuPrices[1], _menuPrices[2]];
 						
 						if(menuType !== null && menuName !== null && menuPrices !== null)
@@ -89,4 +99,4 @@ var textParser = function(mensa) {
 	});
 }
 
-module.exports.textParser = textParser;
+module.exports.textparser = textParser;

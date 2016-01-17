@@ -12,4 +12,4 @@ var mensa = {
 //var r = new bispinghofParser.bispinghofparser(mensa);
 
 var bispinghofParser = require("./parsers/parser_text.js");
-var r = new bispinghofParser.textParser(mensa);
+var r = new bispinghofParser.textparser(mensa);
