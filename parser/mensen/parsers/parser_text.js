@@ -50,7 +50,7 @@ var textParser = function(mensa) {
 			contentByLine = contentByLine.filter(function(value){
 				return value!=='';
 			});
-			//console.log(contentByLine);
+			console.log(contentByLine);
 
 			// kind-of state machine for parsing each line of the menu
 			var inContent = true;
@@ -58,6 +58,7 @@ var textParser = function(mensa) {
 			var menuType = null;
 			var menuName = null;
 			var menuPrices = null;
+			var menuPricesGlobal = {};
 			var endString = "In den Menüpreisen";
 			try {
 				for(var i=0; i < contentByLine.length; i++) {
@@ -65,16 +66,36 @@ var textParser = function(mensa) {
 
 					if(!inContent) break;
 
+					if((_pricing = contentByLine[i].match(/(Menü (III|II|I)|Tagesaktion|Eintopf)\s*(\d,\d{2})\s*€\s*\/\s*(\d,\d{2})\s*€\s*\/\s*(\d,\d{2})\s*€/i))) {
+						if(menuPricesGlobal[_pricing[1].toLowerCase()] && _pricing[1].toLowerCase() == "menü ii"){
+							// did someone accidentally write down prices for Menu II twice?
+							_pricing[1] = "menü iii";
+						}
+						menuPricesGlobal[_pricing[1].toLowerCase()] = [ 
+								_pricing[3],
+								_pricing[4],
+								_pricing[5]
+							];
+					}
+
 					if((_date = contentByLine[i].match(/(Montag|Dienstag|Mittwoch|Donnerstag|Freitag)\s+([0-9]{2}\.[0-9]{2}\.[0-9]{4})/))) {
 						inDay = true; // next lines are the menu name, price etc.
 						menuDate = _date[2];
 					}
 
-					if(menuDate && (_type = contentByLine[i].match(/(Menü (III|II|I)|Tagesaktion)/))) {
+					if(menuDate && (_type = contentByLine[i].match(/(Menü (III|II|I)|Tagesaktion|Eintopf)/))) {
 						menuType = _type[0];
 						menuName = contentByLine[i+1];
-						var _menuPrices = contentByLine[i+2].match(/Stud\.\s*(\d,\d{2})\s*€.+Gäste\.?\s*(\d,\d{2})\s*€/);
-						menuPrices = [_menuPrices[1], _menuPrices[2]];
+
+						if((_menuPrices = contentByLine[i+2].match(/Stud\.\s*(\d,\d{2})\s*€.+Gäste\.?\s*(\d,\d{2})\s*€/))) {
+							menuPrices = [_menuPrices[1], _menuPrices[2]];
+						} else {
+							if(menuPricesGlobal[menuType.toLowerCase()]) {
+								var _pstudent = menuPricesGlobal[menuType.toLowerCase()][0];
+								var _pother = menuPricesGlobal[menuType.toLowerCase()][0]
+								menuPrices = [_pstudent, _pother];
+							}
+						}
 						
 						if(menuType !== null && menuName !== null && menuPrices !== null)
 							submitJson(menuDate, menuType, menuName, menuPrices);
