@@ -129,7 +129,7 @@ function fetchXML(res, querystart, queryend, mensaid) {
 						if(aDay.hasOwnProperty(index2)) {
 							var aMenu = aDay[index2];
 							var omcategory = omday.ele('category').att('name', aMenu.menuName);
-							if(aMenu.name.toLowerCase().indexOf("Geschloss") !== 0) {
+							if(aMenu.name.toLowerCase().indexOf("geschloss") !== 0) {
 								var f = omcategory.ele('meal')
 									.ele('name', aMenu.name)
 									.up()

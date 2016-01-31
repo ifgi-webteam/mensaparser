@@ -78,7 +78,7 @@ var textParser = function(mensa) {
 							];
 					}
 
-					if((_date = contentByLine[i].match(/(Montag|Dienstag|Mittwoch|Donnerstag|Freitag)\s+([0-9]{2}\.[0-9]{2}\.[0-9]{4})/))) {
+					if((_date = contentByLine[i].match(/(Montag|Dienstag|Mittwoch|Donnerstag|Freitag)\s+([0-9]{2}\.[0-9]{2}\.?[0-9]{4})/))) {
 						inDay = true; // next lines are the menu name, price etc.
 						menuDate = _date[2];
 					}
