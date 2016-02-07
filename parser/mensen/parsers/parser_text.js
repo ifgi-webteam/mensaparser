@@ -9,7 +9,7 @@ var textParser = function(mensa) {
 				"name": mensa.name,
 				"uid": mensa.uid
 			},
-			"date": moment(menuDate, "DD.MM.YYYY").format('YYYY-MM-DD'),
+			"date": menuDate,
 			"name": menuName,
 			"minPrice": parseFloat( menuPrices[0].replace(',','.') ).toFixed(2),
 			"maxPrice": parseFloat( menuPrices[1].replace(',','.') ).toFixed(2),
@@ -80,7 +80,18 @@ var textParser = function(mensa) {
 
 					if((_date = contentByLine[i].match(/(Montag|Dienstag|Mittwoch|Donnerstag|Freitag)\s+([0-9]{2}\.[0-9]{2}\.?[0-9]{4})/))) {
 						inDay = true; // next lines are the menu name, price etc.
-						menuDate = _date[2];
+						
+						var thisDate = moment(_date[2], "DD.MM.YYYY")
+						console.log(moment(menuDate).diff(thisDate, 'weeks'));
+						// compare the current menu date to the one before
+						// sometimes dates are wrong, then just take yesterday's date and add 1 day
+						// check for wrong order, check for too much difference (>2 weeks)
+						if( moment(thisDate).isBefore(menuDate)
+							|| Math.abs(moment(menuDate).diff(thisDate, 'weeks')) > 2) {
+							menuDate = moment(menuDate).add(1, 'd').format('YYYY-MM-DD')
+						} else {
+							menuDate = moment(thisDate).format('YYYY-MM-DD');
+						}
 					}
 
 					if(menuDate && (_type = contentByLine[i].match(/(Menü (III|II|I)|Tagesaktion|Eintopf)/))) {
