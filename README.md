@@ -2,6 +2,7 @@
 
 [![Dependency Status](https://gemnasium.com/chk1/mensaparser.svg)](https://gemnasium.com/chk1/mensaparser)
 [![Code Climate](https://codeclimate.com/github/chk1/mensaparser/badges/gpa.svg)](https://codeclimate.com/github/chk1/mensaparser)
+[![Build Status](https://travis-ci.org/chk1/mensaparser.svg?branch=master)](https://travis-ci.org/chk1/mensaparser)
 
 Docker-Compose-Konfiguration, die einen Parser, eine Datenbank und eine API bereitstellt, um die Mensadaten des Studentenwerks Münster maschinenlesbar bereitzustellen.
 
