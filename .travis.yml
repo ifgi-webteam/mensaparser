@@ -1,0 +1,15 @@
+sudo: required
+
+services:
+  - docker
+
+script:
+  - docker-compose build
+  - docker-compose up
+  - wait 30
+  - curl localhost:9000/all
+  - curl localhost:9000/docs
+  - curl localhost:9000/mensen
+  - curl localhost:9000/menu/70ad738c960cc5e88e5e8d8ac1b5975e
+  - curl localhost:9000/openmensa/canteen/70ad738c960cc5e88e5e8d8ac1b5975e
+  - curl localhost:9000/openmensa/today/70ad738c960cc5e88e5e8d8ac1b5975e
