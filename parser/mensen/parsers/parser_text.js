@@ -82,7 +82,6 @@ var textParser = function(mensa) {
 						inDay = true; // next lines are the menu name, price etc.
 						
 						var thisDate = moment(_date[2], "DD.MM.YYYY")
-						console.log(moment(menuDate).diff(thisDate, 'weeks'));
 						// compare the current menu date to the one before
 						// sometimes dates are wrong, then just take yesterday's date and add 1 day
 						// check for wrong order, check for too much difference (>2 weeks)
@@ -94,7 +93,7 @@ var textParser = function(mensa) {
 						}
 					}
 
-					if(menuDate && (_type = contentByLine[i].match(/(Menü (III|II|I)|Tagesaktion|Eintopf)/))) {
+					if(menuDate && (_type = contentByLine[i].match(/^(Menü (III|II|I)|Tagesaktion|Eintopf)$/))) {
 						menuType = _type[0];
 						menuName = contentByLine[i+1];
 
