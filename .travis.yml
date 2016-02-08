@@ -3,6 +3,10 @@ sudo: required
 services:
   - docker
 
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq libxml2-utils
+
 script:
   - docker-compose build
   - docker-compose up -d
