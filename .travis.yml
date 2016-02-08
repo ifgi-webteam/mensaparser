@@ -9,7 +9,7 @@ script:
   - sleep 25
   - curl localhost:9000/all
   - curl localhost:9000/docs
-  - curl localhost:9000/mensen
-  - curl localhost:9000/menu/70ad738c960cc5e88e5e8d8ac1b5975e
-  - curl localhost:9000/openmensa/canteen/70ad738c960cc5e88e5e8d8ac1b5975e
-  - curl localhost:9000/openmensa/today/70ad738c960cc5e88e5e8d8ac1b5975e
+  - curl -s http://localhost:9000/mensen | python -m json.tool >/dev/null
+  - curl -s http://localhost:9000/menu/70ad738c960cc5e88e5e8d8ac1b5975e | python -m json.tool >/dev/null
+  - curl -s http://localhost:9000/openmensa/canteen/70ad738c960cc5e88e5e8d8ac1b5975e | xmllint --noout -
+  - curl -s http://localhost:9000/openmensa/today/70ad738c960cc5e88e5e8d8ac1b5975e | xmllint --noout -
