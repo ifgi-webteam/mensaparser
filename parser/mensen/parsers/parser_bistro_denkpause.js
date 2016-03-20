@@ -51,7 +51,7 @@ var bistroparser = function(mensa){
 				var menusTodayAll = weekdayTables[i*3];
 
 				// III, II, I in absteigender Reihenfolge
-				var menusToday = menusTodayAll.split(/Menü II|Menü I|Eintopf/)
+				var menusToday = menusTodayAll.split(/Menü II|Menü I|Eintopf/, 4)
 					.filter(function(el){
 						// leere Elemente rausfiltern
 						return el.trim().length!=0;
