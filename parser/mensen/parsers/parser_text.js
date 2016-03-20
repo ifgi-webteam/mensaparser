@@ -50,7 +50,7 @@ var textParser = function(mensa) {
 			contentByLine = contentByLine.filter(function(value){
 				return value!=='';
 			});
-			console.log(contentByLine);
+			//console.log(contentByLine);
 
 			// kind-of state machine for parsing each line of the menu
 			var inContent = true;
