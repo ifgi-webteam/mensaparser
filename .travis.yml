@@ -17,3 +17,6 @@ script:
   - curl -s http://localhost:9000/menu/70ad738c960cc5e88e5e8d8ac1b5975e | python -m json.tool >/dev/null
   - curl -s http://localhost:9000/openmensa/canteen/70ad738c960cc5e88e5e8d8ac1b5975e | xmllint --noout -
   - curl -s http://localhost:9000/openmensa/today/70ad738c960cc5e88e5e8d8ac1b5975e | xmllint --noout -
+  - curl -s http://localhost:9000/v2/menu/ | python -m json.tool >/dev/null
+  - curl -s http://localhost:9000/v2/menu/canteen/d46d2d2c4b3ea6341254a9649e38678f | python -m json.tool >/dev/null
+  - curl -s http://localhost:9000/v2/menu/today/d46d2d2c4b3ea6341254a9649e38678f | python -m json.tool >/dev/null

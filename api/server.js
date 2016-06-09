@@ -89,6 +89,60 @@ function respondCurrentMenuByMensa(req, res, next) {
 }
 
 /*
+	List menu by canteen via identifier string
+
+	v2
+*/
+function respondCurrentMenuByMensaV2(req, res, next) {
+	var lastSunday = moment().day("Sunday");
+	var nextSunday = moment().day("Sunday").add(7, 'days');
+	console.log('respondCurrentMenuByMensaV2:', req.params[0]);
+
+	queryDatabase("SELECT date, json_agg(json_build_object('mensa', mensa, 'menu', menus)) as canteen FROM (SELECT data->'date' as date, data->'mensa' as mensa, json_agg(json_build_object('category', data->>'menuName', 'name', data->>'name', 'price', json_build_object('student', data->>'minPrice', 'other', data->>'maxPrice')) ORDER BY data->>'menuName') as menus FROM menus WHERE data->>'date' >= $1 AND data->>'date' <= $2  AND data->'mensa'->>'uid' ~ ($3||'$') GROUP BY date, mensa ORDER BY date, mensa ) row GROUP BY date", 
+		[lastSunday.format("YYYY-MM-DD"), nextSunday.format("YYYY-MM-DD"), req.params[0]],
+		function(response) {
+		res.send( response.rows );
+		next();
+	});
+}
+
+/*
+	List today's menu by Mensa via identifier string for OpenMensa
+
+	v2
+*/
+function respondTodaysMenuByMensaV2(req, res, next) {
+	var today = moment();
+	console.log('respondTodaysMenuByMensaV2:', req.params[0]);
+
+	queryDatabase("SELECT date, json_agg(json_build_object('mensa', mensa, 'menu', menus)) as canteen FROM (SELECT data->'date' as date, data->'mensa' as mensa, json_agg(json_build_object('category', data->>'menuName', 'name', data->>'name', 'price', json_build_object('student', data->>'minPrice', 'other', data->>'maxPrice')) ORDER BY data->>'menuName') as menus FROM menus WHERE data->>'date' >= $1 AND data->>'date' <= $2  AND data->'mensa'->>'uid' ~ ($3||'$') GROUP BY date, mensa ORDER BY date, mensa ) row GROUP BY date", 
+		[today.format("YYYY-MM-DD"), today.format("YYYY-MM-DD"), req.params[0]],
+		function(response) {
+		res.send( response.rows );
+		next();
+	});
+}
+
+/*
+	Respond with the current week's canteen menu
+
+	v2
+*/
+function respondCurrentMenuV2(req, res, next) {
+	var lastSunday = moment().day("Sunday");
+	var nextSunday = moment().day("Sunday").add(7, 'days');
+	console.log('respondCurrentMenuV2:', req.params[0]);
+
+	queryDatabase("SELECT date, json_agg(json_build_object('mensa', mensa, 'menu', menus)) as canteen FROM (SELECT data->'date' as date, data->'mensa' as mensa, json_agg(json_build_object('category', data->>'menuName', 'name', data->>'name', 'price', json_build_object('student', data->>'minPrice', 'other', data->>'maxPrice')) ORDER BY data->>'menuName') as menus FROM menus WHERE data->>'date' >= $1 AND data->>'date' <= $2 GROUP BY date, mensa ORDER BY date, mensa ) row GROUP BY date", 
+		[lastSunday.format("YYYY-MM-DD"), nextSunday.format("YYYY-MM-DD")],
+		function(response) {
+		res.send( response.rows );
+		next();
+	});
+}
+
+
+/*
 	Fetch data in OpenMensa XML feed format as specified here:
 	http://doc.openmensa.org/feed/v2/
 */
@@ -194,6 +248,14 @@ server.get('/all', respondAll);
 server.get('/mensen', respondMensen);
 server.get('/menu', respondCurrentMenu);
 server.get(/^\/menu\/([a-zA-Z0-9]{4,32})/, respondCurrentMenuByMensa);
+
+server.get('/v1/mensen', respondMensen);
+server.get('/v1/menu', respondCurrentMenu);
+server.get(/^\/v1\/menu\/([a-zA-Z0-9]{4,32})/, respondCurrentMenuByMensa);
+
+server.get('/v2/menu', respondCurrentMenuV2);
+server.get(/^\/v2\/menu\/canteen\/([a-zA-Z0-9]{4,32})/, respondCurrentMenuByMensaV2);
+server.get(/^\/v2\/menu\/today\/([a-zA-Z0-9]{4,32})/, respondTodaysMenuByMensaV2);
 
 // OpenMensa XML responses
 server.get(/^\/openmensa\/canteen\/([a-zA-Z0-9]{4,32})/, respondCurrentMenuByMensaXML);
